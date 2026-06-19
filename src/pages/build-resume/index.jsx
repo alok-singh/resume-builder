@@ -1,0 +1,145 @@
+import { ArrowLeft, ArrowRight, Briefcase, Columns3Cog, Download, FileText, GraduationCap, GripVertical, ListChecks, Plus, Sparkles, Upload, User, X } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'sonner';
+import PrimaryButton from '../../components/button';
+import ResumePreview from '../../components/resume-preview';
+import { nextStep, previousStep } from '../../features/build-resume-slice';
+import AddCustomSection from './add-custom-section';
+import BasicInformationSection from './basic-information-section';
+import EducationSection from './education-section';
+import ExperienceSection from './experience-section';
+import FinalizeSection from './finalize-section';
+import ImportSection from './import-section';
+import ProgressSidebar from './progress-sidebar';
+import SkillsSection from './skills-section';
+import SummarySection from './summary-section';
+import TemplateSelectionSection from './template-selection';
+
+const STEPS = [
+  { label: 'Template', icon: FileText },
+  { label: 'Import', icon: Upload },
+  { label: 'Basics', icon: User },
+  { label: 'Experience', icon: Briefcase },
+  { label: 'Education', icon: GraduationCap },
+  { label: 'Skills', icon: ListChecks },
+  { label: 'Summary', icon: Sparkles },
+  { label: 'Custom Section', icon: Columns3Cog },
+  { label: 'Finalize', icon: Download }
+];
+
+const TEMPLATES = [
+  { name: 'Modernist', accent: 'from-fuchsia-400 to-indigo-500' },
+  { name: 'Editorial', accent: 'from-amber-300 to-rose-400' },
+  { name: 'Minimal', accent: 'from-emerald-300 to-cyan-500' },
+  { name: 'Classic', accent: 'from-sky-300 to-violet-500' },
+  { name: 'Mono', accent: 'from-slate-400 to-slate-700' },
+  { name: 'Vivid', accent: 'from-orange-400 to-pink-500' }
+];
+
+const BuilderHeaderSection = (props) => {
+  return (
+    <div className="mb-6 flex items-center justify-between">
+      <div>
+        <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Step {props.currentStep + 1} of 8</p>
+        <h2 className="mt-1 text-2xl font-semibold tracking-tight">{props.steps[props.currentStep].label}</h2>
+      </div>
+      <div className="h-2 w-40 overflow-hidden rounded-full bg-white/60">
+        <div className="h-full gradient-primary transition-all" style={{ width: `${(props.currentStep / props.steps.length) * 100}%` }} />
+      </div>
+    </div>
+  );
+};
+
+const BuildResumePage = () => {
+  const dispatch = useDispatch();
+  const { step, selectedTemplate } = useSelector((state) => state.buildPage);
+  return (
+    <div className="min-h-screen">
+      <main className="mx-auto grid max-w-350 gap-6 px-6 pb-16 pt-6 lg:grid-cols-[220px_1fr_360px]">
+        <ProgressSidebar steps={STEPS} />
+        <section className="glass-strong rounded-3xl p-8">
+          <BuilderHeaderSection steps={STEPS} currentStep={step} />
+          {step === 0 && <TemplateSelectionSection templates={TEMPLATES} />}
+          {step === 1 && <ImportSection />}
+          {step === 2 && <BasicInformationSection />}
+          {step === 3 && <ExperienceSection />}
+          {step === 4 && <EducationSection />}
+          {step === 5 && <SkillsSection />}
+          {step === 6 && <SummarySection />}
+          {step === 7 && <AddCustomSection />}
+          {step === 8 && <FinalizeSection />}
+
+          <div className="mt-8 flex items-center justify-between border-t border-white/40 pt-6">
+            <PrimaryButton
+              onClick={() => dispatch(previousStep())}
+              disabled={step === 1}
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition hover:bg-white/60 disabled:opacity-40"
+            >
+              <ArrowLeft className="h-4 w-4" /> Back
+            </PrimaryButton>
+            {step < STEPS.length - 1 ? (
+              <PrimaryButton
+                onClick={() => dispatch(nextStep())}
+                className="inline-flex items-center gap-2 rounded-full gradient-primary px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5"
+              >
+                Continue <ArrowRight className="h-4 w-4" />
+              </PrimaryButton>
+            ) : (
+              <PrimaryButton
+                onClick={() => toast.success('PDF ready', { description: 'Your resume is downloading…' })}
+                className="inline-flex items-center gap-2 rounded-full gradient-primary px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5"
+              >
+                <Download className="h-4 w-4" /> Download PDF
+              </PrimaryButton>
+            )}
+          </div>
+        </section>
+        <aside className="lg:sticky lg:top-24 h-fit">
+          <ResumePreview />
+        </aside>
+      </main>
+    </div>
+  );
+};
+
+const Input = ({ label, error, className = '', type = 'text', placeholder }) => {
+  return (
+    <div className={className}>
+      <label className="mb-1.5 block text-sm font-medium">{label}</label>
+      <input
+        type={type}
+        placeholder={placeholder}
+        className={`glass-input w-full rounded-xl px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground/70 ${error ? 'ring-2 ring-red-400/60' : ''}`}
+      />
+      {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+    </div>
+  );
+};
+
+const RepeatableCard = ({ title, children }) => {
+  return (
+    <div className="glass rounded-2xl p-5">
+      <div className="mb-4 flex items-center gap-2">
+        <GripVertical className="h-4 w-4 text-muted-foreground" />
+        <p className="text-sm font-medium">{title}</p>
+        <PrimaryButton className="ml-auto grid h-8 w-8 place-items-center rounded-full hover:bg-white/70">
+          <X className="h-4 w-4" />
+        </PrimaryButton>
+      </div>
+      {children}
+    </div>
+  );
+};
+
+const AddButton = ({ label, onClick }) => {
+  return (
+    <PrimaryButton
+      onClick={onClick}
+      className="glass flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-white/70 py-3 text-sm font-medium transition hover:bg-white/70"
+    >
+      <Plus className="h-4 w-4" /> {label}
+    </PrimaryButton>
+  );
+};
+
+export default BuildResumePage;
