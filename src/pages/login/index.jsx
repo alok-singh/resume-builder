@@ -13,8 +13,8 @@ import { checkIsLogin, setLoginStatus } from '../../utils/helper.util';
 const LoginPage = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('alok@gmail.com');
+  const [password, setPassword] = useState('password');
   const [errors, setErrors] = useState({});
 
   const submit = (e) => {

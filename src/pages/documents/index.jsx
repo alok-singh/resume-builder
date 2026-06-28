@@ -1,6 +1,7 @@
 import { Download, FileText, MoreHorizontal, Plus, Search } from 'lucide-react';
 import { Link } from 'react-router';
 import Header from '../../components/header';
+import MinimalResume from '../../templates/minimal';
 
 const docs = [
   { name: 'Senior Frontend Engineer', template: 'Modernist', updated: '2 hours ago', accent: 'from-fuchsia-400 to-indigo-500' },
@@ -45,7 +46,7 @@ const DocumentsPage = () => {
           </Link>
 
           {docs.map((d) => (
-            <div key={d.name} className="glass group overflow-hidden rounded-3xl">
+            <div key={d.name} className="glass group overflow-hidden rounded-3xl max-w-66.75">
               <div className={`relative aspect-3/4 bg-linear-to-br ${d.accent} p-5`}>
                 <div className="absolute inset-3 rounded-2xl bg-white/95 p-4 shadow-inner">
                   <div className="mb-3 h-8 w-2/3 rounded bg-slate-200" />
@@ -58,6 +59,7 @@ const DocumentsPage = () => {
                   <div className="mt-2 h-1 w-11/12 rounded bg-slate-100" />
                   <div className="mt-2 h-1 w-9/12 rounded bg-slate-100" />
                 </div>
+                {/* <MinimalResume isPreview={true} /> */}
                 <div className="absolute right-4 top-4">
                   <button className="glass grid h-8 w-8 place-items-center rounded-full">
                     <MoreHorizontal className="h-4 w-4" />
@@ -81,6 +83,6 @@ const DocumentsPage = () => {
       </main>
     </div>
   );
-}
+};
 
 export default DocumentsPage;

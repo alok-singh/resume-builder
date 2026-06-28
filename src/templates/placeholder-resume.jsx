@@ -1,4 +1,4 @@
-const ResumePreview = (props) => {
+const PlaceholderTemplate = (props) => {
   return (
     <div className="glass rounded-2xl p-4">
       <div className="mb-3 flex items-center justify-between">
@@ -6,7 +6,7 @@ const ResumePreview = (props) => {
         <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-medium text-emerald-700">Auto-saved</span>
       </div>
       <div className="aspect-3/4 overflow-hidden rounded-xl bg-white/95 shadow-inner">
-        <div className="h-14 bg-linear-to-br from-fuchsia-400 to-indigo-500" />
+        <div className={`h-14 bg-linear-to-br ${props?.accent}`} />
         <div className="-mt-8 px-5">
           <div className="grid h-14 w-14 place-items-center rounded-full border-4 border-white bg-linear-to-br from-fuchsia-300 to-indigo-400 text-sm font-semibold text-white shadow">
             AS
@@ -34,10 +34,8 @@ const ResumePreview = (props) => {
           </div>
         </div>
       </div>
-      <p className="mt-3 text-center text-[11px] text-muted-foreground">Page 1 of 1 · A4</p>
     </div>
   );
 };
 
-
-export default ResumePreview;
+export default PlaceholderTemplate;

@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import PrimaryButton from '../../components/button';
 import { Check } from 'lucide-react';
-import { setSelectedTemplate } from '../../features/build-resume-slice';
+import { setSelectedTemplateIndex } from '../../features/build-resume-slice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const TemplateSelectionSection = (props) => {
   const dispatch = useDispatch();
-  const { selectedTemplate } = useSelector((state) => state.buildPage);
+  const { selectedTemplateIndex } = useSelector((state) => state.buildPage);
 
   return (
     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {props.templates.map((template) => {
-        const active = selectedTemplate === template.name;
+      {props.templates.map((template, index) => {
+        const active = selectedTemplateIndex === index;
         return (
           <PrimaryButton
             key={template.name}
-            onClick={() => dispatch(setSelectedTemplate(template.name))}
+            onClick={() => dispatch(setSelectedTemplateIndex(index))}
             className={`glass overflow-hidden rounded-2xl text-left transition ${active ? 'ring-2 ring-indigo-500' : 'hover:bg-white/70'}`}
           >
             <div className={`relative aspect-3/4 bg-linear-to-br ${template.accent} p-4`}>

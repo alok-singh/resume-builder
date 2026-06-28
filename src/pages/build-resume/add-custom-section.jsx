@@ -1,10 +1,10 @@
+import { PlusCircle, Trash2 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addAdditionalSections, removeAdditionalSections, modifyAdditionalSections } from '../../features/build-resume-slice';
-import Card from '../../components/glass-card';
-import TextField from '../../components/text-fields';
-import Textarea from '../../components/text-area';
 import PrimaryButton from '../../components/button';
-import { PlusCircle, X } from 'lucide-react';
+import Card from '../../components/glass-card';
+import Textarea from '../../components/text-area';
+import TextField from '../../components/text-fields';
+import { addAdditionalSections, modifyAdditionalSections, removeAdditionalSections } from '../../features/build-resume-slice';
 
 const AddCustomSection = () => {
   const dispatch = useDispatch();
@@ -36,13 +36,13 @@ const AddCustomSection = () => {
               onClick={() => dispatch(removeAdditionalSections({ index }))}
               className="grid h-9 w-9 place-items-center rounded-full bg-white/70 hover:bg-white absolute top-3 right-3 cursor-pointer"
             >
-              <X className="h-4 w-4" />
+              <Trash2 className="h-4 w-4" />
             </button>
           </Card>
         );
       })}
       <PrimaryButton
-        className="glass flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-white/70 py-3 text-sm font-medium transition hover:bg-white/70"
+        className="glass mt-12 flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-white/70 py-3 text-sm font-medium transition hover:bg-white/70"
         onClick={() => dispatch(addAdditionalSections())}
       >
         <PlusCircle className="grid h-5 w-5 place-items-center rounded-full" />

@@ -5,6 +5,7 @@ const Card = (props) => {
         w-full rounded-2xl
         shadow-xl
         px-8 py-7
+        border border-[#d5d5d5]
         ${props.className || ''}
       `}
     >

@@ -146,6 +146,7 @@
 @layer base {
   * {
     border-color: var(--color-border);
+    box-sizing: border-box;
   }
 
   body {
@@ -190,4 +191,8 @@
 
 .animate-ripple {
   animation: ripple 400ms linear;
+}
+
+.template-preview .hidden+* {
+  margin-top: 0px;
 }

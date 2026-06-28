@@ -3,17 +3,25 @@ import PrimaryButton from '../../components/button';
 import Card from '../../components/glass-card';
 import Textarea from '../../components/text-area';
 import TextField from '../../components/text-fields';
-import { addExperience, modifyExperience } from '../../features/build-resume-slice';
+import { addExperience, modifyExperience, removeExperience } from '../../features/build-resume-slice';
+import { PlusCircle, Trash2 } from 'lucide-react';
 
 const ExperienceSection = () => {
   const dispatch = useDispatch();
   const { experienceList } = useSelector((state) => state.buildPage);
-
   return (
     <div className="space-y-8">
       {experienceList.map((experience, index) => {
         return (
-          <Card>
+          <Card className="relative">
+            <button
+              type="button"
+              onClick={() => dispatch(removeExperience({ index }))}
+              className="hover:text-red-400 absolute top-4 right-4 transition-colors p-2 rounded-lg hover:bg-slate-50 self-end mb-1 cursor-pointer"
+              title="Delete Level Entry"
+            >
+              <Trash2 size={18} strokeWidth={2} />
+            </button>
             <p className="text-sm font-medium mb-6">
               {experience.title || 'Senior Frontend Engineer'}, {experience.employer || 'Nimbus Labs'}, {experience.location || 'Berlin, Germany'}
             </p>
@@ -44,7 +52,6 @@ const ExperienceSection = () => {
                 <input
                   type="checkbox"
                   className="h-4 w-4 rounded"
-                  defaultChecked
                   checked={experience.isCurrentJob}
                   onChange={({ target }) => dispatch(modifyExperience({ index, key: 'isCurrentJob', value: target.checked }))}
                 />{' '}
@@ -62,9 +69,10 @@ const ExperienceSection = () => {
         );
       })}
       <PrimaryButton
-        className="glass flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-white/70 py-3 text-sm font-medium transition hover:bg-white/70"
+        className="glass flex mt-12 w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-white/70 py-3 text-sm font-medium transition hover:bg-white/70"
         onClick={() => dispatch(addExperience())}
       >
+        <PlusCircle className="grid h-5 w-5 place-items-center rounded-full" />
         Add experience
       </PrimaryButton>
     </div>

@@ -2,7 +2,7 @@ const TextField = ({ fullWidth, label, icon, type, value, onChange, error, place
   return (
     <div className={fullWidth ? 'sm:col-span-2' : ''}>
       <label className="mb-1.5 block text-sm font-medium">{label}</label>
-      <div className={`glass-input flex items-center gap-2 rounded-xl px-3 py-2.5 ${error ? 'ring-2 ring-red-400/60' : ''}`}>
+      <div className={`glass-input flex items-center gap-2 rounded-xl px-3 py-2.5 focus-within:border-[#a7f5ed] focus-within:ring-4 focus-within:ring-[#05a2ff]/20 focus-within:outline-none ${error ? 'ring-2 ring-red-400/60' : ''}`}>
         {icon && <span className="text-muted-foreground">{icon}</span>}
         <input
           type={type}
