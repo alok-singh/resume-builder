@@ -54,6 +54,7 @@ const EducationSection = () => {
                 I'm still enrolled
               </label>
               <Textarea
+                keyId={`education-section-${index}`}
                 label="Description"
                 className="sm:col-span-2"
                 placeholder="Thesis: real-time collaboration over CRDTs."

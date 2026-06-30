@@ -10,6 +10,7 @@ const SummarySection = () => {
   return (
     <div className="space-y-4">
       <Textarea
+        keyId="summary-section"
         value={summary}
         onChange={(value) => dispatch(modifySummary({ value }))}
         label="Professional summary"

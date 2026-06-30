@@ -24,7 +24,6 @@ const STEPS = [
   { label: 'Education', icon: GraduationCap },
   { label: 'Skills', icon: ListChecks },
   { label: 'Summary', icon: Sparkles },
-  { label: 'Custom Section', icon: Columns3Cog },
   { label: 'Finalize', icon: Download }
 ];
 
@@ -41,11 +40,13 @@ const BuilderHeaderSection = (props) => {
   return (
     <div className="mb-6 flex items-center justify-between">
       <div>
-        <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Step {props.currentStep + 1} of 8</p>
+        <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          Step {props.currentStep + 1} of {props.steps.length}
+        </p>
         <h2 className="mt-1 text-2xl font-semibold tracking-tight">{props.steps[props.currentStep].label}</h2>
       </div>
       <div className="h-2 w-40 overflow-hidden rounded-full bg-white/60">
-        <div className="h-full gradient-primary transition-all" style={{ width: `${(props.currentStep / props.steps.length) * 100}%` }} />
+        <div className="h-full gradient-primary transition-all" style={{ width: `${(props.currentStep / (props.steps.length - 1)) * 100}%` }} />
       </div>
     </div>
   );
@@ -69,11 +70,10 @@ const BuildResumePage = () => {
           {step === 5 && <SkillsSection />}
           {step === 6 && <SummarySection />}
           {step === 7 && <AddCustomSection />}
-          {step === 8 && <FinalizeSection />}
           <div className="mt-8 flex items-center justify-between border-t border-white/40 pt-6">
             <PrimaryButton
               onClick={() => dispatch(previousStep())}
-              disabled={step === 1}
+              disabled={step === 0}
               className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition hover:bg-white/60 disabled:opacity-40"
             >
               <ArrowLeft className="h-4 w-4" /> Back
@@ -98,46 +98,6 @@ const BuildResumePage = () => {
         <ResumePreview {...buildPage} />
       </main>
     </div>
-  );
-};
-
-const Input = ({ label, error, className = '', type = 'text', placeholder }) => {
-  return (
-    <div className={className}>
-      <label className="mb-1.5 block text-sm font-medium">{label}</label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        className={`glass-input w-full rounded-xl px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground/70 ${error ? 'ring-2 ring-red-400/60' : ''}`}
-      />
-      {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
-    </div>
-  );
-};
-
-const RepeatableCard = ({ title, children }) => {
-  return (
-    <div className="glass rounded-2xl p-5">
-      <div className="mb-4 flex items-center gap-2">
-        <GripVertical className="h-4 w-4 text-muted-foreground" />
-        <p className="text-sm font-medium">{title}</p>
-        <PrimaryButton className="ml-auto grid h-8 w-8 place-items-center rounded-full hover:bg-white/70">
-          <X className="h-4 w-4" />
-        </PrimaryButton>
-      </div>
-      {children}
-    </div>
-  );
-};
-
-const AddButton = ({ label, onClick }) => {
-  return (
-    <PrimaryButton
-      onClick={onClick}
-      className="glass flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-white/70 py-3 text-sm font-medium transition hover:bg-white/70"
-    >
-      <Plus className="h-4 w-4" /> {label}
-    </PrimaryButton>
   );
 };
 

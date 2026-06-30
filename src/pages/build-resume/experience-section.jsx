@@ -58,6 +58,7 @@ const ExperienceSection = () => {
                 I currently work here
               </label>
               <Textarea
+                keyId={`experience-section-${index}`}
                 label="Description"
                 className="sm:col-span-2"
                 placeholder="Led the redesign of the design-system, …"

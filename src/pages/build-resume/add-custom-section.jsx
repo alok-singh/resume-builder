@@ -25,6 +25,7 @@ const AddCustomSection = () => {
                 onChange={(value) => dispatch(modifyAdditionalSections({ index, key: 'title', value }))}
               />
               <Textarea
+                keyId={`custom-section-${index}`}
                 label="Description"
                 className="sm:col-span-2"
                 placeholder="Got dean's medal"
