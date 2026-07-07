@@ -1,38 +1,40 @@
 import { Check } from 'lucide-react';
 import PrimaryButton from '../../components/button';
 import { useDispatch, useSelector } from 'react-redux';
-import { setStep } from '../../features/build-resume-slice';
+import { setStep, buildingSteps } from '../../features/build-resume-slice';
+import iconMap from '../../components/icon-map';
 
-const ProgressSidebar = (props) => {
+const ProgressSidebar = () => {
   const dispatch = useDispatch();
   const { step } = useSelector((state) => state.buildPage);
 
   return (
-    <aside className="glass h-fit rounded-3xl p-4 lg:sticky lg:top-24">
-      <p className="px-2 pb-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">Steps</p>
-      <ol className="space-y-1">
-        {props.steps.map((item, index) => {
-          const Icon = item.icon;
-          const active = step === index;
-          const done = step > index;
-          return (
-            <li key={index}>
-              <PrimaryButton
-                onClick={() => dispatch(setStep(index))}
-                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition ${active ? 'bg-white/80 shadow-sm' : 'hover:bg-white/50'}`}
-              >
-                <span
-                  className={`grid h-7 w-7 place-items-center rounded-lg ${done ? 'bg-emerald-500 text-white' : active ? 'gradient-primary text-white' : 'bg-white/60 text-muted-foreground'}`}
-                >
-                  {done ? <Check className="h-4 w-4" /> : <Icon className="h-4 w-4" />}
-                </span>
-                <span className={active ? 'font-medium' : ''}>{item.label}</span>
-              </PrimaryButton>
-            </li>
-          );
-        })}
-      </ol>
-    </aside>
+    <div className="mx-auto max-w-350 px-6 mt-6">
+      <div className="glass rounded-full p-2">
+        <ol className="flex items-center gap-2">
+          {buildingSteps.map((item, index) => {
+            const Icon = iconMap[item.icon];
+            const active = step === index;
+            const done = step > index;
+            return (
+              <li key={index} className="flex-1">
+                <PrimaryButton onClick={() => dispatch(setStep(index))} className={`flex w-full items-center gap-2 px-3 py-2.5 text-sm rounded-full transition hover:bg-white/60 ${active ? 'bg-white/80 shadow-sm' : ''}`}>
+                  <span className={`grid h-7 w-7 place-items-center rounded-lg ${done ? 'bg-emerald-500 text-white' : active ? 'gradient-primary text-white' : 'bg-white/60 text-muted-foreground'}`}>{done ? <Check className="h-4 w-4" /> : <Icon className="h-4 w-4" />}</span>
+                  <span>
+                    <span className={active ? 'font-medium' : ''}>{item.label}</span>
+                    {active && (
+                      <p className="text-[10px] text-muted-foreground text-left">
+                        Step {index + 1} of {buildingSteps.length}
+                      </p>
+                    )}
+                  </span>
+                </PrimaryButton>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </div>
   );
 };
 

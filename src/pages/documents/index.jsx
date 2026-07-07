@@ -1,7 +1,7 @@
 import { Download, FileText, MoreHorizontal, Plus, Search } from 'lucide-react';
 import { Link } from 'react-router';
 import Header from '../../components/header';
-import MinimalResume from '../../templates/minimal';
+import MinimalResume from '../../templates/galaxy';
 
 const docs = [
   { name: 'Senior Frontend Engineer', template: 'Modernist', updated: '2 hours ago', accent: 'from-fuchsia-400 to-indigo-500' },

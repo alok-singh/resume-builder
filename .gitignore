@@ -27,3 +27,5 @@ prompts.md
 dummy-data.json
 
 dump
+data.json
+*-data.json

@@ -65,10 +65,6 @@ const Textarea = (props) => {
 
   useEffect(() => {
     if (props?.onChange && editorRef.current) {
-      [...editorRef.current.querySelectorAll('ul li, ol li')].map((element, index) => {
-        element.attributes.key = `${props.keyId}-${index}`;
-        console.log(`${props.keyId}-${index}`);
-      });
       props.onChange(editorRef.current.innerHTML);
     }
   }, [editorRef?.current?.innerHTML]);

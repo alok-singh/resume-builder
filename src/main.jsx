@@ -12,6 +12,7 @@ import HomePage from './pages/home';
 import LoginPage from './pages/login';
 
 import './index.css';
+import PreviewTemplate from './pages/preview-template';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -24,6 +25,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/build" element={<BuildResumePage />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/documents" element={<DocumentsPage />} />
+
+            <Route path="/preview-template" element={<PreviewTemplate />} />
+
           </Route>
         </Routes>
       </BrowserRouter>
