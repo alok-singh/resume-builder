@@ -97,9 +97,9 @@ const Axis = (props) => {
           {resumeData?.educationList?.length ? (
             <section className="mb-12">
               <h2 className="font-extrabold uppercase text-[18px] mb-5">Education</h2>
-              {resumeData?.educationList?.map((education) => {
+              {resumeData?.educationList?.map((education, idx) => {
                 return (
-                  <div className="mb-8">
+                  <div className="mb-8" key={idx}>
                     <h3 className="font-extrabold text-[19px]">
                       {education.degree}, {education.location}
                     </h3>

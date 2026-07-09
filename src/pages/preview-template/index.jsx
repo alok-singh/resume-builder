@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { templateMap } from '../build-resume/resume-preview';
 
-import ResumeTemplate24 from '../../templates/ResumeTemplate24';
-import ResumeTemplate25 from '../../templates/ResumeTemplate25';
-import ResumeTemplate26 from '../../templates/ResumeTemplate26';
-import ResumeTemplate27 from '../../templates/ResumeTemplate27';
-import ResumeTemplate28 from '../../templates/ResumeTemplate28';
-import ResumeTemplate29 from '../../templates/ResumeTemplate29';
-import ResumeTemplate30 from '../../templates/ResumeTemplate30';
-import ResumeTemplate31 from '../../templates/ResumeTemplate31';
-import Executive from '../../templates/executive';
+// import ResumeTemplate24 from '../../../dump/ResumeTemplate24';
+// import ResumeTemplate25 from '../../../dump/ResumeTemplate25';
+// import ResumeTemplate26 from '../../../dump/ResumeTemplate26';
+// import ResumeTemplate27 from '../../../dump/ResumeTemplate27';
+// import ResumeTemplate28 from '../../../dump/ResumeTemplate28';
+// import ResumeTemplate29 from '../../../dump/ResumeTemplate29';
+// import ResumeTemplate30 from '../../../dump/ResumeTemplate30';
+// import ResumeTemplate31 from '../../../dump/ResumeTemplate31';
+// import Executive from '../../../dump/executive';
 
 const PreviewTemplate = () => {
   const combinedTemplateMap = {

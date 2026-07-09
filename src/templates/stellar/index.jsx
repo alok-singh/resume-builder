@@ -1,12 +1,12 @@
 import React from 'react';
-import { FileText, Briefcase, GraduationCap, Trophy, Mail, Phone, MapPin } from 'lucide-react';
+import { FileText, Briefcase, GraduationCap, Trophy, Mail, Phone, MapPin, Star } from 'lucide-react';
 import resumeData from '../../data/candidate-1-data.json';
 
 const SectionHeading = ({ icon: Icon, children }) => {
   return (
     <div className="border-b-2 border-slate-200 mb-4">
       <div className="flex items-center gap-2 border-b-2 border-slate-900 w-fit -mb-0.5">
-        <Icon size={16} className="text-black" />
+        {Icon ? <Icon size={16} className="text-black" /> : null}
         <h2 className="text-lg font-bold uppercase tracking-wide text-slate-900">{children}</h2>
       </div>
     </div>
@@ -19,7 +19,7 @@ const HtmlList = ({ html }) => {
 
 const Stellar = (props) => {
   const data = props?.basicInfo ? props : resumeData;
-  const { basicInfo, summary, skills = [], experienceList = [], educationList = [] } = data;
+  const { basicInfo, summary, skills = [], experienceList = [], educationList = [], additionalSections = [] } = data;
   const fullName = `${basicInfo.firstName} ${basicInfo.lastName}`;
   const fullAddress = [basicInfo.address, basicInfo.city, basicInfo.country, basicInfo.postCode].filter(Boolean).join(', ');
 
@@ -71,6 +71,7 @@ const Stellar = (props) => {
                     <div>
                       <p className="font-bold">{edu.schoolName}</p>
                       <p className="text-sm text-slate-700">{edu.degree}</p>
+                      {edu.description ? <HtmlList html={edu.description} /> : null}
                     </div>
                   </div>
                 ))}
@@ -83,25 +84,25 @@ const Stellar = (props) => {
           <div className="mb-6 space-y-3 text-sm text-slate-700">
             {basicInfo.email && (
               <p className="flex items-center gap-2">
-                <Mail size={14} className="text-black"/>
+                <Mail size={14} className="text-black" />
                 {basicInfo.email}
               </p>
             )}
             {basicInfo.phoneNumber && (
               <p className="flex items-center gap-2">
-                <Phone size={14} className="text-black"/>
+                <Phone size={14} className="text-black" />
                 {basicInfo.phoneNumber}
               </p>
             )}
             {fullAddress && (
               <div className="flex items-start gap-2">
                 <MapPin size={14} className="mt-0.5 text-black" />
-                <p className='flex-1'>{fullAddress}</p>
+                <p className="flex-1">{fullAddress}</p>
               </div>
             )}
           </div>
           {skills.length > 0 && (
-            <section>
+            <section className="mb-6">
               <SectionHeading icon={Trophy}>Skills</SectionHeading>
               <div className="mt-3 flex flex-wrap gap-2">
                 {skills.map((s) => (
@@ -112,6 +113,14 @@ const Stellar = (props) => {
               </div>
             </section>
           )}
+
+          {additionalSections.length > 0 &&
+            additionalSections.map((additionalSection, idx) => (
+              <section className="mb-6">
+                <SectionHeading icon={Star}>{additionalSection.title}</SectionHeading>
+                <HtmlList html={additionalSection.description} />
+              </section>
+            ))}
         </div>
       </div>
     </div>

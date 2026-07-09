@@ -30,7 +30,7 @@ const Aurora = (props) => {
     <div className="mx-auto w-full max-w-4xl font-eb-garamond text-slate-900" style={{backgroundColor: `${templateThemeBgColor}30`}}>
       <div className="grid grid-cols-2 border-b border-slate-900">
         <div className="border-r border-slate-900 px-2.5 py-6 relative text-center">
-          <div class="absolute left-1/2 -translate-x-1/2 z-0 w-40.5 h-40.5 rounded-[50px] blur-[41px]" style={{ backgroundColor: templateThemeBgColor }}></div>
+          <div className="absolute left-1/2 -translate-x-1/2 z-0 w-40.5 h-40.5 rounded-[50px] blur-[41px]" style={{ backgroundColor: templateThemeBgColor }}></div>
           <h1 className="text-5xl leading-tight relative">
             {basicInfo.firstName}
             <br />
@@ -38,7 +38,7 @@ const Aurora = (props) => {
           </h1>
           <p className="mt-2 text-sm uppercase tracking-widest relative">{basicInfo.currentJobTitle}</p>
         </div>
-        <div className="pt-6">
+        <div className="pt-8">
           {basicInfo.phoneNumber && (
             <div className="border-b border-slate-900 py-2 text-sm px-8">
               <span className="font-bold">Phone:</span> {basicInfo.phoneNumber}
@@ -119,7 +119,7 @@ const Aurora = (props) => {
           )}
           {additionalSections.length > 0 &&
             additionalSections.map((additionalSection, idx) => (
-              <section className="border-b border-slate-900">
+              <section className="border-b border-slate-900" key={idx}>
                 <SectionHeading style={{ color: templateThemeBgColor }}>{additionalSection.title}</SectionHeading>
                 <div className="px-8 py-4">
                   <HtmlList html={additionalSection.description} />

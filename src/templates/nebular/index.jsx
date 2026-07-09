@@ -109,7 +109,7 @@ const Nebular = (props) => {
 
           {additionalSections.length > 0 &&
             additionalSections.map((additionalSection, idx) => (
-              <section className="mb-8">
+              <section className="mb-8" key={idx}>
                 <SectionHeading>{additionalSection.title}</SectionHeading>
                 <HtmlList html={additionalSection.description} />
               </section>

@@ -131,7 +131,7 @@ const Solstice = (props) => {
 
       {additionalSections.length > 0 &&
         additionalSections.map((section, idx) => (
-          <section className="mt-8">
+          <section className="mt-8" key={`additional-solstice-${idx}`}>
             <SectionHeading style={{ color: themeStyleBgColor }}>{section.title}</SectionHeading>
             <HtmlList html={section.description} />
           </section>

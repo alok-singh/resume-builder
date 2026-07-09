@@ -7,8 +7,6 @@ const SectionHeading = ({ children }) => {
   return <h2 className="mb-3 inline-block border-b-2 border-slate-800 pb-0.5 font-serif text-lg font-bold tracking-wide text-slate-900">{children}</h2>;
 };
 
-// Renders HTML bullet content (from the JSON's rich-text fields) using the
-// design's dot-bullet style rather than a default disc marker.
 const HtmlBullets = ({ html }) => {
   return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-700 [&_ul]:list-none [&_ul]:space-y-1.5 [&_ul]:pl-0 [&_li]:relative [&_li]:pl-4 [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:content-['·']" dangerouslySetInnerHTML={{ __html: html }} />;
 };
@@ -25,8 +23,8 @@ const Astral = (props) => {
   return (
     <div className={`mx-auto w-full max-w-4xl bg-white font-serif text-slate-800 shadow-sm`}>
       {/* Header band */}
-      <header className="flex items-center gap-8 px-9 py-8" style={{ backgroundColor: themeStyleBgColor, color: themeStyleTxtColor }}>
-        {basicInfo.profileImage && <img src={basicInfo.profileImage} alt={fullName} className="h-32 w-32 flex-none object-cover" />}
+      <header className="flex items-center gap-16 px-9 py-8" style={{ backgroundColor: themeStyleBgColor, color: themeStyleTxtColor }}>
+        {basicInfo.profileImage && <img src={basicInfo.profileImage} alt={fullName} className="h-40 w-40 flex-none object-cover" />}
         <div>
           <h1 className="text-4xl leading-tight text-slate-900">{fullName}</h1>
           <p className="mt-2 font-bold">{basicInfo.currentJobTitle}</p>

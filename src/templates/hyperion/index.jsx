@@ -20,11 +20,9 @@ const HtmlList = ({ html }) => {
 
 const Hyperion = (props) => {
   const data = props?.basicInfo ? props : resumeData;
-  const { basicInfo, summary, skills = [], experienceList = [], educationList = [] } = data;
+  const { basicInfo, summary, skills = [], experienceList = [], educationList = [], additionalSections = [] } = data;
   const fullName = `${basicInfo.firstName} ${basicInfo.lastName}`;
   const fullAddress = [basicInfo.address, basicInfo.city, basicInfo.postCode, basicInfo.country].filter(Boolean).join(', ');
-  const additionalSections = data?.additionalSections || [];
-
   const themeStyleBgColor = props?.templateThemeColor?.bg || 'oklch(70.4% 0.04 256.788)';
 
   return (

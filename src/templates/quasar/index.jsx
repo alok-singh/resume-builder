@@ -107,7 +107,7 @@ const Quasar = (props) => {
 
       {additionalSections.length > 0 &&
         additionalSections.map((additionalSection, idx) => (
-          <section className="mb-8 grid grid-cols-[110px_1fr] gap-6">
+          <section key={idx} className="mb-8 grid grid-cols-[110px_1fr] gap-6">
             <SectionHeading>{additionalSection.title}</SectionHeading>
             <div className="-mt-2">{additionalSection.description ? <HtmlList html={additionalSection.description} /> : null}</div>
           </section>

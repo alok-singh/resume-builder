@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 import resumeData from '../../data/candidate-1-data.json';
 
 const SectionHeading = ({ children }) => {
-  return <h2 className="mb-3 border-b border-slate-900 pb-1 text-lg font-bold uppercase tracking-wide text-slate-900">{children}</h2>;
+  return <h2 className="mb-3 border-b-2 border-slate-900 pb-1 text-lg font-bold uppercase tracking-wide text-slate-900">{children}</h2>;
 };
 
 const HtmlList = ({ html }) => {
@@ -12,46 +12,37 @@ const HtmlList = ({ html }) => {
 
 const Lunar = (props) => {
   const data = props?.basicInfo ? props : resumeData;
-  const { basicInfo, summary, skills = [], experienceList = [], educationList = [] } = data;
+  const { basicInfo, summary, skills = [], experienceList = [], educationList = [], additionalSections = [] } = data;
   const fullName = `${basicInfo.firstName} ${basicInfo.lastName}`;
   const fullAddress = [basicInfo.address, basicInfo.city, basicInfo.country, basicInfo.postCode].filter(Boolean).join(', ');
 
   return (
-    <div className="mx-auto w-full max-w-4xl bg-neutral-100 p-10 font-sans text-slate-900">
-      <div className="mx-auto mb-8 w-fit border-2 border-slate-900 px-10 py-4 text-center">
+    <div className="mx-auto w-full max-w-4xl font-roboto text-slate-900 relative">
+      <div className="w-fit border-2 border-slate-900 px-10 py-4 text-center absolute left-[50%] translate-x-[-50%] top-10">
         <h1 className="text-2xl font-bold tracking-wide">{fullName.toUpperCase()}</h1>
         <p className="mt-1 text-sm uppercase tracking-widest">{basicInfo.currentJobTitle}</p>
       </div>
 
-      <div className="grid grid-cols-[28%_1fr] gap-x-8">
-        <div>
+      <div className="grid grid-cols-[28%_1fr]">
+        <div className="bg-neutral-100 px-8 pt-44">
           <section className="mb-8">
             <SectionHeading>Details</SectionHeading>
             <div className="space-y-3 text-sm text-slate-700">
               {fullAddress && (
                 <div>
-                  <p className="flex items-center gap-1.5 text-xs font-bold uppercase">
-                    <MapPin size={12} />
-                    Address
-                  </p>
+                  <p className="flex items-center gap-1.5 text-xs font-bold uppercase">Address</p>
                   <p>{fullAddress}</p>
                 </div>
               )}
               {basicInfo.phoneNumber && (
                 <div>
-                  <p className="flex items-center gap-1.5 text-xs font-bold uppercase">
-                    <Phone size={12} />
-                    Phone
-                  </p>
+                  <p className="flex items-center gap-1.5 text-xs font-bold uppercase">Phone</p>
                   <p>{basicInfo.phoneNumber}</p>
                 </div>
               )}
               {basicInfo.email && (
                 <div>
-                  <p className="flex items-center gap-1.5 text-xs font-bold uppercase">
-                    <Mail size={12} />
-                    Email
-                  </p>
+                  <p className="flex items-center gap-1.5 text-xs font-bold uppercase">Email</p>
                   <p className="break-all">{basicInfo.email}</p>
                 </div>
               )}
@@ -69,7 +60,7 @@ const Lunar = (props) => {
           )}
         </div>
 
-        <div>
+        <div className="px-8 pt-44">
           {summary && (
             <section className="mb-8">
               <SectionHeading>Summary</SectionHeading>
@@ -100,7 +91,7 @@ const Lunar = (props) => {
           )}
 
           {educationList.length > 0 && (
-            <section>
+            <section className="mb-8">
               <SectionHeading>Education</SectionHeading>
               <div className="space-y-3">
                 {educationList.map((edu, idx) => (
@@ -114,11 +105,20 @@ const Lunar = (props) => {
                     <p className="text-sm text-slate-600">
                       {edu.start} - {edu.isPursuing ? 'Current' : edu.end}
                     </p>
+                    {edu.description ? <HtmlList html={edu.description} /> : null}
                   </div>
                 ))}
               </div>
             </section>
           )}
+
+          {additionalSections.length > 0 &&
+            additionalSections.map((additionalSection, idx) => (
+              <section className="mb-8">
+                <SectionHeading>{additionalSection.title}</SectionHeading>
+                <HtmlList html={additionalSection.description} />
+              </section>
+            ))}
         </div>
       </div>
     </div>

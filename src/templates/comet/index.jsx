@@ -12,19 +12,18 @@ const HtmlList = ({ html }) => {
 
 const Comet = (props) => {
   const data = props?.basicInfo ? props : resumeData;
-  const { basicInfo, summary, skills = [], experienceList = [], educationList = [] } = data;
-  const fullName = `${basicInfo.firstName} ${basicInfo.lastName}`;
+  const { basicInfo, summary, skills = [], experienceList = [], educationList = [], additionalSections = [] } = data;
   const fullAddress = [basicInfo.address, basicInfo.city, basicInfo.country, basicInfo.postCode].filter(Boolean).join(', ');
-  const additionalSections = data?.additionalSections || [];
-
-  const themeStyleBgColor = props?.templateThemeColor?.bg || 'oklch(85.2% 0.199 91.936)';
+  const themeStyleBgColor = props?.templateThemeColor?.bg || '#ffe14d';
   return (
     <div className="mx-auto w-full max-w-4xl overflow-hidden rounded-xl bg-white font-sans shadow-sm">
       {/* Yellow header */}
-      <div className="flex items-center gap-6 px-8 py-8" style={{ backgroundColor: themeStyleBgColor }}>
-        {basicInfo.profileImage && <img src={basicInfo.profileImage} alt={fullName} className="h-20 w-20 flex-none rounded object-cover" />}
+      <div className="flex items-center gap-6 px-8 py-4" style={{ backgroundColor: themeStyleBgColor }}>
+        {basicInfo.profileImage && <img src={basicInfo.profileImage} alt={basicInfo.firstName} className="h-30 w-30 flex-none rounded object-cover" />}
         <div>
-          <h1 className="text-3xl font-extrabold uppercase leading-tight text-slate-900">{fullName}</h1>
+          <h1 className="text-3xl font-extrabold uppercase leading-tight text-slate-900">
+            {basicInfo.firstName} <br /> {basicInfo.lastName}{' '}
+          </h1>
           <p className="mt-1 text-lg text-slate-800">{basicInfo.currentJobTitle}</p>
         </div>
       </div>

@@ -123,7 +123,7 @@ const Nova = (props) => {
 
         {additionalSections.length > 0 &&
           additionalSections.map((additionalSection, idx) => (
-            <section className="mb-8 border-t border-slate-800 pt-4">
+            <section className="mb-8 border-t border-slate-800 pt-4" key={idx}>
               <SectionHeading style={{ backgroundColor: themeStyleBgColor }}>{additionalSection.title}</SectionHeading>
               <HtmlList html={additionalSection.description} />
             </section>

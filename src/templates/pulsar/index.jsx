@@ -114,7 +114,7 @@ const Pulsar = (props) => {
 
       {additionalSections.length > 0 &&
         additionalSections.map((additionalSection, idx) => (
-          <section className="mt-8">
+          <section className="mt-8" key={idx}>
             <SectionHeading>{additionalSection.title}</SectionHeading>
             <div className="mt-3 space-y-3">{additionalSection.description && <HtmlList html={additionalSection.description} />}</div>
           </section>
