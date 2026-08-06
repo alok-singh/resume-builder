@@ -6,8 +6,8 @@ const Executive = (props) => {
   const { basicInfo, summary, experienceList, educationList, skills, languages } = resume;
   const fullName = `${basicInfo.firstName} ${basicInfo.lastName}`;
 
-  return (
-    <div className={`bg-[#f2f2f2] rounded-lg overflow-hidden shadow-sm text-[#111827]`}>
+ return (
+    <div style={props.style} className={`bg-[#f2f2f2] rounded-lg overflow-hidden shadow-sm text-[#111827]`}>
       {/* Header */}
       <div className="bg-[#dfe5ed] px-10 py-8">
         <div className="flex justify-between items-start">

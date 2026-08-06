@@ -7,7 +7,7 @@ const SectionHeading = ({ children }) => {
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Aether = (props) => {
@@ -16,8 +16,8 @@ const Aether = (props) => {
   const fullName = `${basicInfo.firstName} ${basicInfo.lastName}`;
   const fullAddress = [basicInfo.city, basicInfo.address, basicInfo.postCode, basicInfo.country].filter(Boolean).join(', ');
 
-  return (
-    <div className="mx-auto w-full max-w-4xl font-eb-garamond bg-white px-10 py-10 text-black">
+ return (
+    <div style={props.style} className="font-eb-garamond bg-white px-10 py-10 text-black h-full">
       <h1 className="text-4xl font-bold">{fullName}</h1>
       <p className="mt-2 text-base font-bold">{basicInfo.currentJobTitle}</p>
       <div className="mt-2 flex flex-wrap items-center justify-between gap-x-2 text-sm">
@@ -29,7 +29,7 @@ const Aether = (props) => {
       {summary && (
         <section className="mb-8 mt-8">
           <SectionHeading>Summary</SectionHeading>
-          <p className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
+          <div className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
         </section>
       )}
 

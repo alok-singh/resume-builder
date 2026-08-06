@@ -14,7 +14,7 @@ const Nebula = (props) => {
 
   const themeStyleBgColor = props?.templateThemeColor?.bg || '#9DBACA';
   return (
-    <div className="mx-auto w-full max-w-4xl bg-white font-roboto text-slate-900">
+    <div style={props.style} className="bg-white font-roboto text-slate-900 h-full flex flex-col">
       <div className="grid grid-cols-[36.17%_1fr]" style={{ backgroundColor: themeStyleBgColor }}>
         <div className="border-r border-[#5a707d] p-8 text-[#2e404a]">
           <h1 className="text-3xl font-bold">{fullName}</h1>
@@ -48,12 +48,12 @@ const Nebula = (props) => {
         </div>
         <div className="px-4 py-12 text-black">
           <SectionTitle title="Summary" />
-          <p className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
+          <div className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
         </div>
       </div>
 
-      <div className="grid grid-cols-[36.17%_1fr]">
-        <div className="border-r border-[#7e8c93] px-4 py-8">
+      <div className="grid grid-cols-[36.17%_1fr] grow">
+        <div className="border-r border-[#7e8c93] px-4 py-8 do-not-hide">
           {educationList.length > 0 && (
             <section className="mb-8">
               <SectionTitle title="Education" />
@@ -65,7 +65,7 @@ const Nebula = (props) => {
                   </p>
                   <p className="mt-1 font-bold">{edu.degree}</p>
                   <p className="text-sm">{edu.field}</p>
-                  {edu.description ? <p className="mt-1 text-sm leading-relaxed [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: edu.description }} /> : null}
+                  {edu.description ? <div className="mt-1 text-sm leading-relaxed [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: edu.description }} /> : null}
                 </div>
               ))}
             </section>
@@ -85,7 +85,7 @@ const Nebula = (props) => {
             additionalSections.map((additionalSection, idx) => (
               <section className="mb-8" key={idx}>
                 <SectionTitle title={additionalSection.title} />
-                {additionalSection.description ? <p className="mt-1 text-sm leading-relaxed [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: additionalSection.description }} /> : null}
+                {additionalSection.description ? <div className="mt-1 text-sm leading-relaxed [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: additionalSection.description }} /> : null}
               </section>
             ))}
         </div>
@@ -101,7 +101,7 @@ const Nebula = (props) => {
                     <p className="text-sm italic text-slate-600 my-2">
                       {exp.location} &middot; {exp.start} - {exp.isCurrentJob ? 'Current' : exp.end}
                     </p>
-                    {exp.description ? <p className="mt-1 text-sm leading-relaxed [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: exp.description }} /> : null}
+                    {exp.description ? <div className="mt-1 text-sm leading-relaxed [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: exp.description }} /> : null}
                   </div>
                 ))}
               </div>

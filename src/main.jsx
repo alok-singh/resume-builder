@@ -19,15 +19,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
+          <Route path="/preview-template/:templateId/:activeThemeIndex?/:page?" element={<PreviewTemplate />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="" element={<ProtectedRoute><Outlet /></ProtectedRoute>}>
             <Route path="/build" element={<BuildResumePage />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/documents" element={<DocumentsPage />} />
-
-            <Route path="/preview-template" element={<PreviewTemplate />} />
-
           </Route>
         </Routes>
       </BrowserRouter>

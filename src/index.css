@@ -25,6 +25,7 @@
   --font-time-new-roman: "Times New Roman", sans-serif;
   --font-roboto: "Roboto", sans-serif;
   --font-roboto-slab: "RobotoSlab", sans-serif;
+  --font-tinos: "Tinos", sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -162,6 +163,17 @@
     background-attachment: fixed;
     min-height: 100vh;
   }
+
+  .hidden+* {
+    margin-top: 0px !important;
+    border-top: 0px !important;
+  }
+
+  :has(+ .hidden) {
+    margin-bottom: 0px !important;
+    border-bottom: 0px !important;
+  }
+
 }
 
 @utility glass {
@@ -197,10 +209,6 @@
 
 .animate-ripple {
   animation: ripple 400ms linear;
-}
-
-.template-preview .hidden+* {
-  margin-top: 0px;
 }
 
 @font-face {
@@ -267,4 +275,27 @@
   font-family: "Roboto";
   font-weight: 600;
   src: url(/fonts/Roboto-Bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Tinos";
+  src: url(/fonts/Tinos-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Tinos";
+  font-weight: 600;
+  src: url(/fonts/Tinos-Bold.ttf) format("truetype");
+}
+
+@media print {
+  body {
+    background: #333;
+  }
+}
+
+@media print {
+  .download-button {
+    display: none;
+  }
 }

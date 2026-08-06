@@ -3,7 +3,7 @@ import { FileText, Briefcase, GraduationCap, Trophy, Mail, Phone, MapPin, Star }
 import resumeData from '../../data/candidate-1-data.json';
 
 const SectionHeading = ({ icon: Icon, children }) => {
-  return (
+ return (
     <div className="border-b-2 border-slate-200 mb-4">
       <div className="flex items-center gap-2 border-b-2 border-slate-900 w-fit -mb-0.5">
         {Icon ? <Icon size={16} className="text-black" /> : null}
@@ -14,7 +14,7 @@ const SectionHeading = ({ icon: Icon, children }) => {
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-700 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-700 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Stellar = (props) => {
@@ -23,17 +23,17 @@ const Stellar = (props) => {
   const fullName = `${basicInfo.firstName} ${basicInfo.lastName}`;
   const fullAddress = [basicInfo.address, basicInfo.city, basicInfo.country, basicInfo.postCode].filter(Boolean).join(', ');
 
-  return (
-    <div className="mx-auto w-full max-w-4xl bg-white p-10 font-sans text-slate-900">
+ return (
+    <div style={props.style} className="bg-white p-10 font-open-sans text-slate-900 h-full">
       <h1 className="text-2xl font-extrabold border-t-4 border-slate-900 tracking-wide pt-4 pb-2">{fullName.toUpperCase()}</h1>
       <p className="text-sm uppercase tracking-widest border-b-4 border-slate-900 text-slate-600 pb-4">{basicInfo.currentJobTitle}</p>
 
-      <div className="grid grid-cols-[1fr_260px] gap-4">
-        <div className="pt-16">
+      <div className="flex">
+        <div className="pt-16 grow do-not-hide">
           {summary && (
             <section className="mb-8">
               <SectionHeading icon={FileText}>Summary</SectionHeading>
-              <p className="mt-3 text-sm leading-relaxed text-slate-700" dangerouslySetInnerHTML={{ __html: summary }} />
+              <div className="mt-3 text-sm leading-relaxed text-slate-700" dangerouslySetInnerHTML={{ __html: summary }} />
             </section>
           )}
 
@@ -80,7 +80,7 @@ const Stellar = (props) => {
           )}
         </div>
 
-        <div className="pl-4 pt-16 border-l-2 border-slate-200">
+        <div className="w-65 pl-4 pt-16 border-l-2 border-slate-200 do-not-hide">
           <div className="mb-6 space-y-3 text-sm text-slate-700">
             {basicInfo.email && (
               <p className="flex items-center gap-2">

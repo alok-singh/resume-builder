@@ -7,7 +7,7 @@ const SectionHeading = ({ children }) => {
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Cosmos = (props) => {
@@ -17,8 +17,8 @@ const Cosmos = (props) => {
   const fullAddress = [basicInfo.address, basicInfo.city, basicInfo.country, basicInfo.postCode].filter(Boolean).join(', ');
 
   const themeStyleBgColor = props?.templateThemeColor?.bg || '#a3bb95';
-  return (
-    <div className="mx-auto w-full max-w-4xl bg-white font-sans text-slate-900">
+ return (
+    <div style={props.style} className="bg-white font-open-sans text-slate-900 h-full pt-px">
       <div className="flex flex-wrap items-center justify-between gap-4 rounded-md px-8 py-6 text-white m-2" style={{ backgroundColor: themeStyleBgColor }}>
         <h1 className="text-2xl font-bold">{fullName}</h1>
         <div className="space-y-1 text-right text-sm">
@@ -49,7 +49,7 @@ const Cosmos = (props) => {
         {summary && (
           <section className="mb-8">
             <SectionHeading>Summary</SectionHeading>
-            <p className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
+            <div className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
           </section>
         )}
 
@@ -76,7 +76,7 @@ const Cosmos = (props) => {
           <section className="mb-8">
             <SectionHeading>Education</SectionHeading>
             {educationList.map((edu, idx) => (
-              <>
+              <div className="mb-4">
                 <div className="flex items-baseline justify-between" key={idx}>
                   <p className="font-bold">{edu.schoolName}</p>
                   <span className="text-sm">
@@ -84,13 +84,13 @@ const Cosmos = (props) => {
                   </span>
                 </div>
                 {edu.description ? <HtmlList html={edu.description} /> : null}
-              </>
+              </div>
             ))}
           </section>
         )}
 
         {skills.length > 0 && (
-          <section className="text-slate-800 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5 mb-8">
+          <section className="text-slate-800 [&_ul]:list-disc [&_ul]:pl-4 mb-8">
             <SectionHeading>Skills</SectionHeading>
             <ul className="space-y-1.5 text-sm">
               {skills.map((s) => (

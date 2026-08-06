@@ -1,118 +1,142 @@
+import React from 'react';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import sampleData from '../../data/candidate-1-data.json';
 
-const Axis = (props) => {
-  const resumeData = props.basicInfo ? props : sampleData;
-  const themeStyleBgColor = props?.templateThemeColor?.bg || '#001d34';
-  const themeStyleTxtColor = props?.templateThemeColor?.txt || '#ffffff';
+const SectionHeading = ({ children, style }) => {
   return (
-    <div className={`aspect-[1/1.4142] bg-white font-open-sans [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_a]:text-blue-600 [&_a]:underline`}>
+    <h2 className="mb-2 text-[13px] font-bold uppercase tracking-wide" style={style}>
+      {children}
+    </h2>
+  );
+};
+
+const HtmlList = ({ html }) => {
+  return <div className="mt-2 space-y-1.5 text-[13.5px] leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
+};
+
+const Axis = (props) => {
+  const data = props.basicInfo ? props : sampleData;
+  const { basicInfo, summary, skills = [], experienceList = [], educationList = [], languages = [], additionalSections = [] } = data;
+  const fullName = `${basicInfo.firstName} ${basicInfo.lastName}`;
+  const fullAddress = [basicInfo.address, basicInfo.city, basicInfo.country, basicInfo.postCode].filter(Boolean).join(', ');
+
+  const themeStyleBgColor = props?.templateThemeColor?.bg || '#ccdfef';
+  const themeStyleTxtColor = props?.templateThemeColor?.txt || '#333';
+ return (
+    <div style={props.style} className="font-open-sans bg-white text-slate-900 shadow-sm text-[14px] h-full">
       <div className="flex min-h-full">
-        <aside className="w-[38%]" style={{ backgroundColor: themeStyleBgColor, color: themeStyleTxtColor }}>
-          {resumeData?.basicInfo?.profileImage ? (
-            <div className="h-97.5 overflow-hidden">
-              <img src={resumeData?.basicInfo?.profileImage} alt={resumeData?.basicInfo?.firstName} className="w-full h-full object-cover" />
-            </div>
-          ) : null}
-          <div className="px-8 py-8">
-            <h3 className="font-extrabold text-[20px] tracking-wide uppercase mb-8">Details</h3>
-            <div className="space-y-4 text-[18px] leading-relaxed">
-              {resumeData?.basicInfo?.email ? (
-                <div className="flex items-center gap-3">
-                  <div>
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <div className="break-all">{resumeData?.basicInfo?.email}</div>
-                </div>
-              ) : null}
-              {resumeData?.basicInfo?.address ? (
-                <div className="flex items-center gap-3">
-                  <div>
-                    <MapPin className="w-4 h-4" />
-                  </div>
-                  <div className="break-all">{resumeData?.basicInfo?.address}</div>
-                </div>
-              ) : null}
-              {resumeData?.basicInfo?.phoneNumber ? (
-                <div className="flex items-center gap-3">
-                  <div>
-                    <Phone className="w-4 h-4" />
-                  </div>
-                  <div className="break-all">{resumeData?.basicInfo?.phoneNumber}</div>
-                </div>
-              ) : null}
-            </div>
-            <hr className="border-white/60 my-10" />
+        {/* Sidebar */}
+        <div className="min-w-[38%] do-not-hide min-h-full" style={{ backgroundColor: themeStyleBgColor, color: themeStyleTxtColor }}>
+          {basicInfo.profileImage && <img src={basicInfo.profileImage} alt={fullName} className="aspect-[1] w-full object-cover" />}
 
-            {resumeData?.skills?.length ? <h3 className="font-extrabold text-[20px] tracking-wide uppercase mb-6">Skills</h3> : null}
-            {resumeData?.skills?.length ? (
-              <ul className="space-y-4 text-[18px]">
-                {resumeData?.skills?.map((skill) => {
-                  return <li key={`skill-${skill.name}`}>{skill.name}</li>;
-                })}
-              </ul>
-            ) : null}
+          <div className="px-5 pb-6 pt-5">
+            <SectionHeading>Details</SectionHeading>
+            <div className="space-y-2.5 text-[13.5px]">
+              {basicInfo.email && (
+                <p className="flex items-center gap-2">
+                  <Mail size={14} className="mt-0.5 flex-none" />
+                  <span className="break-all">{basicInfo.email}</span>
+                </p>
+              )}
+              {fullAddress && (
+                <p className="flex items-center gap-2">
+                  <MapPin size={14} className="mt-0.5 flex-none" />
+                  <span className="break-all">{fullAddress}</span>
+                </p>
+              )}
+              {basicInfo.phoneNumber && (
+                <p className="flex items-center gap-2">
+                  <Phone size={14} className="mt-0.5 flex-none" />
+                  <span className="break-all">{basicInfo.phoneNumber}</span>
+                </p>
+              )}
+            </div>
 
-            {resumeData?.languages?.length ? <hr className="border-white/60 my-10" /> : null}
-            {resumeData?.languages?.length ? <h3 className="font-extrabold text-[20px] tracking-wide uppercase mb-5">Languages</h3> : null}
-            {resumeData?.languages?.length ? (
-              <div className="space-y-3">
-                {resumeData?.languages?.map((language) => {
-                  return <div className="font-bold text-[18px] uppercase">{language.name}</div>;
-                })}
+            {skills.length > 0 && (
+              <div className="mt-5 border-t-2 pt-4" style={{ borderColor: themeStyleTxtColor }}>
+                <SectionHeading style={{ color: themeStyleTxtColor }}>Skills</SectionHeading>
+                <ul className="space-y-2 text-[13.5px]">
+                  {skills.map((s) => (
+                    <li key={s.name} className="flex gap-2">
+                      <span>&bull;</span>
+                      {s.name}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ) : null}
-          </div>
-        </aside>
-        <main className="w-[62%] p-8 text-[#0f172a]">
-          <h1 className="text-[60px] font-extrabold uppercase tracking-tight leading-none text-[#236295] break-all">
-            {resumeData?.basicInfo?.firstName} {resumeData?.basicInfo?.lastName}
-          </h1>
-          <div className="text-[25px] mt-3 mb-10">{resumeData?.basicInfo?.currentJobTitle}</div>
-          {resumeData?.summary ? (
-            <section className="mb-12">
-              <h2 className="font-extrabold uppercase text-[18px] mb-5">Summary</h2>
-              <p className="text-[18px] leading-[1.35] max-w-180" dangerouslySetInnerHTML={{ __html: resumeData?.summary }} />
-            </section>
-          ) : null}
-          {resumeData?.experienceList?.length ? (
-            <section className="mb-12">
-              <h2 className="font-extrabold uppercase text-[18px] mb-5">Experience</h2>
-              {resumeData?.experienceList?.map((experience) => {
-                return (
-                  <div className="mb-8">
-                    <h3 className="font-extrabold text-[19px]">
-                      {experience.title}, {experience.employer}, {experience.location}
-                    </h3>
-                    <p className="text-[18px] mt-1 mb-4">
-                      {experience.start} — {experience.end || 'Present'}
-                    </p>
-                    <div className="list-disc pl-5 space-y-3 text-[18px] leading-tight" dangerouslySetInnerHTML={{ __html: experience.description }} />
-                  </div>
-                );
-              })}
-            </section>
-          ) : null}
+            )}
 
-          {resumeData?.educationList?.length ? (
-            <section className="mb-12">
-              <h2 className="font-extrabold uppercase text-[18px] mb-5">Education</h2>
-              {resumeData?.educationList?.map((education, idx) => {
-                return (
-                  <div className="mb-8" key={idx}>
-                    <h3 className="font-extrabold text-[19px]">
-                      {education.degree}, {education.location}
-                    </h3>
-                    <p className="text-[18px] mt-1 mb-4">
-                      {education.start} — {education.end || 'Present'}
-                    </p>
-                    <div className="list-disc pl-5 space-y-3 text-[18px] leading-tight" dangerouslySetInnerHTML={{ __html: education.description }} />
-                  </div>
-                );
-              })}
+            {languages.length > 0 && (
+              <div className="mt-5 border-t-2 pt-4" style={{ borderColor: themeStyleTxtColor }}>
+                <SectionHeading style={{ color: themeStyleTxtColor }}>Languages</SectionHeading>
+                <div className="space-y-0.5 text-[13.5px] font-bold uppercase">
+                  {languages.map((l) => (
+                    <p key={l.name}>{l.name}</p>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Main */}
+        <div className="p-8 min-h-full grow">
+          <h1 className="text-4xl font-bold uppercase text-[#236295]">{fullName}</h1>
+          <p className="mt-1 text-[15px] text-slate-800">{basicInfo.currentJobTitle}</p>
+
+          {summary && (
+            <section className="mt-6">
+              <SectionHeading>Summary</SectionHeading>
+              <div className="text-[13.5px] leading-relaxed text-slate-800" dangerouslySetInnerHTML={{ __html: summary }} />
             </section>
-          ) : null}
-        </main>
+          )}
+
+          {experienceList.length > 0 && (
+            <section className="mt-6">
+              <SectionHeading>Experience</SectionHeading>
+              <div className="space-y-4">
+                {experienceList.map((exp, idx) => (
+                  <div key={idx}>
+                    <p className="text-[14px] font-bold text-slate-900">
+                      {exp.title}, {exp.employer}, {exp.location}
+                    </p>
+                    <p className="text-[13.5px] text-slate-600">
+                      {exp.start} &mdash; {exp.isCurrentJob ? 'Current' : exp.end}
+                    </p>
+                    <HtmlList html={exp.description} />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {educationList.length > 0 && (
+            <section className="mt-6">
+              <SectionHeading>Education</SectionHeading>
+              <div className="space-y-3">
+                {educationList.map((edu, idx) => (
+                  <div key={idx}>
+                    <p className="text-[14px] font-bold text-slate-900">
+                      {edu.degree}, {edu.schoolName}
+                    </p>
+                    <p className="text-[13.5px] text-slate-600">
+                      {edu.start} &mdash; {edu.isPursuing ? 'Current' : edu.end}
+                    </p>
+                    {edu.description ? <HtmlList html={edu.description} /> : null}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {additionalSections.length > 0 &&
+            additionalSections.map((additionalSection, idx) => (
+              <section className="mt-6">
+                <SectionHeading>{additionalSection.title}</SectionHeading>
+                {additionalSection.description ? <HtmlList html={additionalSection.description} /> : null}
+              </section>
+            ))}
+        </div>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import candidateData from '../../data/candidate-1-data.json';
 import LinkedInIcon from '../../icons/linkedin';
 
 const SectionHeading = ({ children }) => {
-  return <h2 className="mb-3 inline-block border-b-2 border-slate-800 pb-0.5 font-serif text-lg font-bold tracking-wide text-slate-900">{children}</h2>;
+  return <h2 className="mb-3 border-b-2 border-slate-800 pb-0.5 font-serif text-lg font-bold tracking-wide text-slate-900">{children}</h2>;
 };
 
 const HtmlBullets = ({ html }) => {
@@ -16,12 +16,12 @@ const Astral = (props) => {
   const { basicInfo, summary, skills = [], experienceList = [], educationList = [], additionalSections = [] } = data;
   const fullName = `${basicInfo.firstName} ${basicInfo.lastName}`;
   const locationLine = [basicInfo.city, basicInfo.postCode].filter(Boolean).join(', ');
-  
+
   const themeStyleBgColor = props?.templateThemeColor?.bg || '#f2f2f2';
   const themeStyleTxtColor = props?.templateThemeColor?.txt || '#333333';
 
   return (
-    <div className={`mx-auto w-full max-w-4xl bg-white font-serif text-slate-800 shadow-sm`}>
+    <div style={props.style} className="bg-white font-serif text-slate-800 shadow-sm min-h-full flex flex-col">
       {/* Header band */}
       <header className="flex items-center gap-16 px-9 py-8" style={{ backgroundColor: themeStyleBgColor, color: themeStyleTxtColor }}>
         {basicInfo.profileImage && <img src={basicInfo.profileImage} alt={fullName} className="h-40 w-40 flex-none object-cover" />}
@@ -58,9 +58,9 @@ const Astral = (props) => {
       </header>
 
       {/* Body */}
-      <div className="grid grid-cols-[34%_1px_1fr]">
+      <div className="flex grow">
         {/* Left column */}
-        <div className="px-9 py-8">
+        <div className="w-[34%] min-w-[34%] px-9 py-8 do-not-hide border-r">
           {summary && (
             <section className="mb-8">
               <SectionHeading>Summary</SectionHeading>
@@ -83,11 +83,8 @@ const Astral = (props) => {
           )}
         </div>
 
-        {/* Divider */}
-        <div className="bg-slate-200" />
-
         {/* Right column */}
-        <div className="px-9 py-8">
+        <div className="px-9 py-8 grow do-not-hide h-full">
           {experienceList.length > 0 && (
             <section className="mb-8">
               <SectionHeading>Experience</SectionHeading>
@@ -126,6 +123,7 @@ const Astral = (props) => {
                     <p className="mt-1 text-sm text-slate-700">
                       {edu.location} | {edu.degree}
                     </p>
+                    {edu.description ? <HtmlBullets html={edu.description} /> : null}
                   </div>
                 ))}
               </div>

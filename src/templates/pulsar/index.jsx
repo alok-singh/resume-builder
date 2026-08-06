@@ -12,7 +12,7 @@ const SectionHeading = ({ children }) => {
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Pulsar = (props) => {
@@ -23,14 +23,11 @@ const Pulsar = (props) => {
 
   const themeStyleBgColor = props?.templateThemeColor?.bg || 'oklch(96.7% 0.067 122.328)';
   return (
-    <div className="font-montserrat mx-auto w-full max-w-4xl p-10 text-slate-900" style={{ backgroundColor: themeStyleBgColor }}>
+    <div className="font-montserrat text-[14px] h-full p-8 text-slate-900" style={{ ...(props.style || {}), backgroundColor: themeStyleBgColor }}>
       <div className="flex items-start justify-between gap-6">
         <div>
-          <h1 className="text-5xl font-extrabold leading-tight">
-            {basicInfo.firstName}
-            <br />
-            {basicInfo.lastName}
-          </h1>
+          <h1 className="text-5xl font-extrabold leading-tight">{basicInfo.firstName}</h1>
+          <h1 className="text-5xl font-extrabold leading-tight mt-0">{basicInfo.lastName}</h1>
           <div className="mt-3 flex items-center gap-3">
             <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-slate-900">
               <ArrowDownRight size={16} />
@@ -68,7 +65,7 @@ const Pulsar = (props) => {
       {summary && (
         <section className="mt-8">
           <SectionHeading>Summary</SectionHeading>
-          <p className="mt-3 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
+          <div className="mt-3 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
         </section>
       )}
 
@@ -121,14 +118,11 @@ const Pulsar = (props) => {
         ))}
 
       {skills.length > 0 && (
-        <section className="mt-8">
+        <section className="mt-8 [&_ul]:list-disc [&_ul]:pl-4">
           <SectionHeading>Skills</SectionHeading>
           <ul className="mt-3 space-y-2 text-sm">
-            {skills.map((s) => (
-              <li key={s.name} className="flex gap-2">
-                <span>&bull;</span>
-                {s.name}
-              </li>
+            {skills.map((s, i) => (
+              <li key={`skill-pulsar-${i}`}>{s.name}</li>
             ))}
           </ul>
         </section>

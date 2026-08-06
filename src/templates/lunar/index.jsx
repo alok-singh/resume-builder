@@ -7,24 +7,26 @@ const SectionHeading = ({ children }) => {
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Lunar = (props) => {
   const data = props?.basicInfo ? props : resumeData;
-  const { basicInfo, summary, skills = [], experienceList = [], educationList = [], additionalSections = [] } = data;
+  const { basicInfo, summary, skills = [], experienceList = [], educationList = [], languages = [], additionalSections = [] } = data;
   const fullName = `${basicInfo.firstName} ${basicInfo.lastName}`;
   const fullAddress = [basicInfo.address, basicInfo.city, basicInfo.country, basicInfo.postCode].filter(Boolean).join(', ');
 
   return (
-    <div className="mx-auto w-full max-w-4xl font-roboto text-slate-900 relative">
-      <div className="w-fit border-2 border-slate-900 px-10 py-4 text-center absolute left-[50%] translate-x-[-50%] top-10">
-        <h1 className="text-2xl font-bold tracking-wide">{fullName.toUpperCase()}</h1>
-        <p className="mt-1 text-sm uppercase tracking-widest">{basicInfo.currentJobTitle}</p>
+    <div style={props.style} className="font-roboto text-slate-900 h-full bg-white p-8">
+      <div className="flex items-center justify-center">
+        <div className="w-fit border-2 border-slate-900 px-10 py-4 text-center mb-4">
+          <h1 className="text-2xl font-bold tracking-wide">{fullName.toUpperCase()}</h1>
+          <p className="mt-1 text-sm uppercase tracking-widest">{basicInfo.currentJobTitle}</p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-[28%_1fr]">
-        <div className="bg-neutral-100 px-8 pt-44">
+      <div className="h-full grid grid-cols-[28%_1fr]">
+        <div className="bg-neutral-100 px-8 do-not-hide">
           <section className="mb-8">
             <SectionHeading>Details</SectionHeading>
             <div className="space-y-3 text-sm text-slate-700">
@@ -60,11 +62,11 @@ const Lunar = (props) => {
           )}
         </div>
 
-        <div className="px-8 pt-44">
+        <div className="px-8 bg-white">
           {summary && (
             <section className="mb-8">
               <SectionHeading>Summary</SectionHeading>
-              <p className="text-sm leading-relaxed text-slate-700" dangerouslySetInnerHTML={{ __html: summary }} />
+              <div className="text-sm leading-relaxed text-slate-700" dangerouslySetInnerHTML={{ __html: summary }} />
             </section>
           )}
 

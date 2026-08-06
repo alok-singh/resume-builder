@@ -1,5 +1,6 @@
-import { GENERIC_HEADERS } from "../config/vars";
 import { showAPIResponseToastMessage } from "./toast-message.util";
+
+const genericHeaders = { "Content-Type": "application/json" };
 
 const generateHeaders = (headers) => {
   return Object.keys(headers).reduce((acc, key) => {
@@ -11,12 +12,12 @@ const generateHeaders = (headers) => {
 const fetchResource = async (url, method, data, headers) => {
   try {
     const fetchHeaders = generateHeaders(headers);
-    const urlResponse = await fetch(url, {
+    const config = {
       method: method,
       headers: fetchHeaders,
       ...(data ? { body: JSON.stringify(data) } : {})
-    });
-
+    };
+    const urlResponse = await fetch(url, config);
     const result = await urlResponse.json();
     showAPIResponseToastMessage(result);
     return result;
@@ -64,10 +65,10 @@ export const uploadPdf = async (url, files, fileType) => {
 };
 
 
-export const getResource = async (url, headers = GENERIC_HEADERS) => {
+export const getResource = async (url, headers = genericHeaders) => {
   return fetchResource(url, 'GET', null, headers);
 };
 
-export const postResource = async (url, data, headers = GENERIC_HEADERS) => {
+export const postResource = async (url, data, headers = genericHeaders) => {
   return fetchResource(url, 'POST', data, headers);
 };

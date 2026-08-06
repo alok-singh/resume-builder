@@ -2,12 +2,12 @@ import React from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import resumeData from '../../data/candidate-1-data.json';
 
-const SectionHeading = ({ children }) => {
-  return <h2 className="mb-3 text-sm font-bold uppercase tracking-widest text-slate-900">{children}</h2>;
+const SectionHeading = ({ children, className }) => {
+  return <h2 className={`do-not-hide mb-3 text-sm font-bold uppercase tracking-widest shrink-0 grow-0 text-slate-900 ${className}`}>{children}</h2>;
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Zenith = (props) => {
@@ -19,7 +19,7 @@ const Zenith = (props) => {
 
   const themeStyleBgColor = props?.templateThemeColor?.bg || '#f0fdf4';
   return (
-    <div className="mx-auto w-full max-w-4xl p-10 font-serif text-slate-900" style={{ backgroundColor: themeStyleBgColor }}>
+    <div className="p-10 font-serif text-slate-900 h-full" style={{ ...(props.style || {}), backgroundColor: themeStyleBgColor }}>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-3xl">{fullName}</h1>
@@ -48,16 +48,16 @@ const Zenith = (props) => {
       </div>
 
       {summary && (
-        <section className="mt-8 grid grid-cols-[120px_1fr] gap-6">
-          <SectionHeading>Summary</SectionHeading>
-          <p className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
+        <section className="mt-8 flex items-start">
+          <SectionHeading className="w-40">Summary</SectionHeading>
+          <div className="w-3xl pl-4 text-sm leading-relaxed grow" dangerouslySetInnerHTML={{ __html: summary }} />
         </section>
       )}
 
       {experienceList.length > 0 && (
-        <section className="mt-8 grid grid-cols-[120px_1fr] gap-6">
-          <SectionHeading>Experience</SectionHeading>
-          <div className="space-y-5">
+        <section className="mt-8 flex items-start">
+          <SectionHeading className="w-40">Experience</SectionHeading>
+          <div className="pl-4 grow space-y-5">
             {experienceList.map((exp, idx) => (
               <div key={idx}>
                 <p className="font-bold">
@@ -74,9 +74,9 @@ const Zenith = (props) => {
       )}
 
       {educationList.length > 0 && (
-        <section className="mt-8 grid grid-cols-[120px_1fr] gap-6">
-          <SectionHeading>Education</SectionHeading>
-          <div className="space-y-3">
+        <section className="mt-8 flex items-start">
+          <SectionHeading className="w-40">Education</SectionHeading>
+          <div className="pl-4 grow space-y-3">
             {educationList.map((edu, idx) => (
               <div key={idx}>
                 <p className="font-bold">
@@ -93,9 +93,9 @@ const Zenith = (props) => {
       )}
 
       {skills.length > 0 && (
-        <section className="mt-8 grid grid-cols-[120px_1fr] gap-6">
-          <SectionHeading>Skills</SectionHeading>
-          <div className="grid grid-cols-2 gap-x-10 text-sm">
+        <section className="mt-8 flex items-start">
+          <SectionHeading className="w-40">Skills</SectionHeading>
+          <div className="pl-4 grow grid grid-cols-2 gap-x-10 text-sm">
             <ul className="space-y-1.5">
               {skills.slice(0, mid).map((s) => (
                 <li key={s.name} className="flex gap-2">
@@ -118,11 +118,9 @@ const Zenith = (props) => {
 
       {additionalSections.length > 0 &&
         additionalSections.map((additional, idx) => (
-          <section key={`additional-zenith-${idx}`} className="mt-8 grid grid-cols-[120px_1fr] gap-6">
-            <SectionHeading>{additional.title}</SectionHeading>
-            <div className="-mt-2">
-              {additional.description && <HtmlList html={additional.description} />}
-            </div>
+          <section key={`additional-zenith-${idx}`} className="mt-8 flex items-start">
+            <SectionHeading className="w-40">{additional.title}</SectionHeading>
+            <div className="pl-4 grow -mt-2">{additional.description && <HtmlList html={additional.description} />}</div>
           </section>
         ))}
     </div>

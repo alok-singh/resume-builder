@@ -7,7 +7,7 @@ const SectionHeading = ({ children }) => {
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Quasar = (props) => {
@@ -18,20 +18,18 @@ const Quasar = (props) => {
   const mid = Math.ceil(skills.length / 2);
 
   return (
-    <div className="mx-auto w-full max-w-4xl bg-white px-10 py-10 font-serif text-slate-900">
+    <div style={props.style} className="bg-white px-10 py-10 font-serif text-slate-900 h-full">
       <p className="text-sm font-bold uppercase tracking-widest">{basicInfo.currentJobTitle}</p>
       <h1 className="mt-1 text-5xl font-extrabold uppercase">{fullName}</h1>
       <p className="mt-3 flex flex-wrap items-center gap-x-2 text-sm uppercase tracking-wide text-slate-700">
         {fullAddress}
         {basicInfo.phoneNumber && (
           <>
-            <span>&nbsp;</span>
             <Phone size={12} className="inline" /> {basicInfo.phoneNumber}
           </>
         )}
         {basicInfo.email && (
           <>
-            <span>&nbsp;</span>
             <Mail size={12} className="inline" /> {basicInfo.email}
           </>
         )}
@@ -40,7 +38,7 @@ const Quasar = (props) => {
       {summary && (
         <section className="mb-8 grid grid-cols-[110px_1fr] gap-6">
           <SectionHeading>Summary</SectionHeading>
-          <p className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
+          <div className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
         </section>
       )}
       {skills.length > 0 && (
@@ -68,7 +66,9 @@ const Quasar = (props) => {
       )}
       {experienceList.length > 0 && (
         <section className="mb-8 grid grid-cols-[110px_1fr] gap-6">
-          <SectionHeading>Experience</SectionHeading>
+          <div className="do-not-hide">
+            <SectionHeading>Experience</SectionHeading>
+          </div>
           <div className="space-y-5">
             {experienceList.map((exp, idx) => (
               <div key={idx}>
@@ -87,7 +87,9 @@ const Quasar = (props) => {
 
       {educationList.length > 0 && (
         <section className="mb-8 grid grid-cols-[110px_1fr] gap-6">
-          <SectionHeading>Education</SectionHeading>
+          <div className="do-not-hide">
+            <SectionHeading>Education</SectionHeading>
+          </div>
           <div className="space-y-2">
             {educationList.map((edu, idx) => (
               <div key={idx}>

@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 import resumeData from '../../data/candidate-1-data.json';
 
 const SectionHeading = ({ children, style }) => {
-  return (
+ return (
     <div className="mb-3">
       <div className="mb-1 h-1 w-10" style={style} />
       <h2 className="text-sm font-bold uppercase tracking-wide text-slate-900">{children}</h2>
@@ -12,7 +12,7 @@ const SectionHeading = ({ children, style }) => {
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Nova = (props) => {
@@ -24,8 +24,8 @@ const Nova = (props) => {
 
   const themeStyleBgColor = props?.templateThemeColor?.bg || 'oklch(94.1% 0.03 12.58)';
 
-  return (
-    <div className="mx-auto w-full max-w-4xl bg-white font-sans text-slate-900">
+ return (
+    <div style={props.style} className="bg-white font-open-sans text-slate-900 h-full">
       <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 px-8 py-3 text-sm" style={{ backgroundColor: themeStyleBgColor }}>
         {basicInfo.phoneNumber && (
           <span className="flex items-center gap-1.5">
@@ -56,7 +56,7 @@ const Nova = (props) => {
         {summary && (
           <section className="mb-6 border-t border-slate-800 pt-4">
             <SectionHeading style={{ backgroundColor: themeStyleBgColor }}>Summary</SectionHeading>
-            <p className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
+            <div className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
           </section>
         )}
 

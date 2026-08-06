@@ -1,47 +1,26 @@
-import { useState } from 'react';
-import { templateMap } from '../build-resume/resume-preview';
-
-// import ResumeTemplate24 from '../../../dump/ResumeTemplate24';
-// import ResumeTemplate25 from '../../../dump/ResumeTemplate25';
-// import ResumeTemplate26 from '../../../dump/ResumeTemplate26';
-// import ResumeTemplate27 from '../../../dump/ResumeTemplate27';
-// import ResumeTemplate28 from '../../../dump/ResumeTemplate28';
-// import ResumeTemplate29 from '../../../dump/ResumeTemplate29';
-// import ResumeTemplate30 from '../../../dump/ResumeTemplate30';
-// import ResumeTemplate31 from '../../../dump/ResumeTemplate31';
-// import Executive from '../../../dump/executive';
+import { useParams } from 'react-router-dom';
+import ConvertToA4 from '../../components/convert-to-a4';
+import { buildingTemplates } from '../../features/build-resume-slice';
+import { templateConfigMap, templateMap } from '../build-resume/resume-preview';
+import PrintPreview from '../../components/paged';
 
 const PreviewTemplate = () => {
-  const combinedTemplateMap = {
-    ...templateMap,
-    // resume_template_24: (props) => <ResumeTemplate24 {...props} />,
-    // resume_template_25: (props) => <ResumeTemplate25 {...props} />,
-    // resume_template_26: (props) => <ResumeTemplate26 {...props} />,
-    // resume_template_27: (props) => <ResumeTemplate27 {...props} />,
-    // resume_template_28: (props) => <ResumeTemplate28 {...props} />,
-    // resume_template_29: (props) => <ResumeTemplate29 {...props} />,
-    // resume_template_30: (props) => <ResumeTemplate30 {...props} />,
-    // resume_template_31: (props) => <ResumeTemplate31 {...props} />,
-    // executive: (props) => <Executive {...props} />
-  };
-  const templateList = Object.keys(combinedTemplateMap);
-  const [selectedTemplateId, setSelectedTemplateId] = useState(templateList[0]);
-  const Template = combinedTemplateMap[selectedTemplateId];
+  const { templateId, activeThemeIndex = 0 } = useParams();
+  const currentTemplateId = templateId?.toLowerCase();
+  const templateList = Object.keys(templateMap);
+  const Template = templateMap[currentTemplateId];
+  const activeTemplate = buildingTemplates.find((item) => item.id === currentTemplateId) || buildingTemplates[0];
+  const { padding, zoom } = templateConfigMap[currentTemplateId];
 
   return (
-    <div className="w-max max-w-4xl mx-auto">
-      <select className="mb-4 rounded border p-2" value={selectedTemplateId} onChange={(e) => setSelectedTemplateId(e.target.value)}>
-        {templateList.map((templateId) => {
-          const Template = combinedTemplateMap[templateId];
-          return (
-            <option key={templateId} value={templateId}>
-              {templateId}
-            </option>
-          );
-        })}
-      </select>
-      <div className="aspect-[1/1.414] overflow-scroll">
-        <Template />
+    <div className="bg-[#300]">
+      <div className="mx-auto w-5xl" id="main-preview">
+        <ConvertToA4 pagePadding={padding}>
+          <Template style={{ zoom }} templateThemeColor={activeTemplate.themes[activeThemeIndex]} />
+        </ConvertToA4>
+        {/* <PrintPreview title="title" margin="0mm">
+          <Template style={{ zoom: 1 }} templateThemeColor={activeTemplate.themes[activeThemeIndex]} />
+        </PrintPreview> */}
       </div>
     </div>
   );

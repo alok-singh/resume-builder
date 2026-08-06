@@ -1,19 +1,20 @@
-import { ArrowLeft, ArrowRight, Download } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'sonner';
 import PrimaryButton from '../../components/button';
 import { buildingSteps, nextStep, previousStep } from '../../features/build-resume-slice';
 import AddCustomSection from './add-custom-section';
 import BasicInformationSection from './basic-information-section';
+import DownloadPdfButton from './download-handler';
 import EducationSection from './education-section';
 import ExperienceSection from './experience-section';
 import ImportSection from './import-section';
+import LanguagesSection from './languages-section';
 import ProgressSidebar from './progress-sidebar';
 import ResumePreview from './resume-preview';
 import SkillsSection from './skills-section';
 import SummarySection from './summary-section';
 import TemplateSelectionSection from './template-selection';
-import LanguagesSection from './languages-section';
 
 const BuilderHeaderSection = (props) => {
   return (
@@ -32,10 +33,12 @@ const BuilderHeaderSection = (props) => {
 };
 
 const BuildResumePage = () => {
+  const previewRef = useRef(null);
   const dispatch = useDispatch();
   const buildPage = useSelector((state) => state.buildPage);
   const { step, selectedTemplateIndex } = buildPage;
   const showPreview = step >= 1;
+
   return (
     <div className="min-h-screen">
       <ProgressSidebar steps={buildingSteps} />
@@ -55,24 +58,17 @@ const BuildResumePage = () => {
             <PrimaryButton onClick={() => dispatch(previousStep())} disabled={step === 0} className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition hover:bg-white/60 disabled:opacity-40">
               <ArrowLeft className="h-4 w-4" /> Back
             </PrimaryButton>
-            <PrimaryButton
-              onClick={() => (step < buildingSteps.length - 1 ? dispatch(nextStep()) : toast.success('PDF ready', { description: 'Your resume is downloading…' }))}
-              className="inline-flex items-center gap-2 rounded-full gradient-primary px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5"
-            >
-              {step < buildingSteps.length - 1 ? (
-                <>
-                  Continue <ArrowRight className="h-4 w-4" />{' '}
-                </>
-              ) : (
-                <>
-                  <Download className="h-4 w-4" />
-                  <span>Download PDF</span>
-                </>
-              )}
-            </PrimaryButton>
+            {step < buildingSteps.length - 1 ? (
+              <PrimaryButton onClick={() => dispatch(nextStep())} className="inline-flex items-center gap-2 rounded-full gradient-primary px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5">
+                {' '}
+                Continue <ArrowRight className="h-4 w-4" />{' '}
+              </PrimaryButton>
+            ) : (
+              <DownloadPdfButton targetRef={previewRef} />
+            )}
           </div>
         </section>
-        {step >= 1 ? <ResumePreview /> : null}
+        {step >= 1 ? <ResumePreview previewRef={previewRef} /> : null}
       </main>
     </div>
   );

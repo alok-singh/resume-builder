@@ -1,5 +1,5 @@
+import { createSlice } from '@reduxjs/toolkit';
 import data from '../data/candidate-1-data.json';
-import { createSlice } from '@reduxjs/toolkit'
 
 export const buildingSteps = [
   { label: 'Template', icon: 'file_text' },
@@ -156,25 +156,25 @@ export const buildingTemplates = [
     id: 'axis',
     title: 'Axis',
     description: 'Commanding layout with thoughtful contrast that optimizes both clarity and professional impact.',
-    themes: [{ bg: '#ccdfef' }, { bg: '#041929' }, { bg: '#ebebeb' }, { bg: '#3116ad' }]
+    themes: [{ bg: '#ccdfef', txt: '#333' }, { bg: '#041929', txt: '#fff' }, { bg: '#ebebeb', txt: '#333' }, { bg: '#320201', txt: '#fff' }]
   },
   {
     id: 'keystone',
     title: 'Keystone',
     description: 'Soft blue accents combined with clean sidebar structure create a serene, well-organized presentation.',
-    themes: [{ bg: '#e9ebed' }, { bg: '#dce7f7' }, { bg: '#061023' }, { bg: '#003d42' }]
+    themes: [{ bg: '#e9ebed' }, { bg: '#dce7f7', txt: 'black' }, { bg: '#061023', txt: '#fff', sideBg: '#061023', sideTxt: '#fff' }, { bg: '#003d42', txt: '#fff' }]
   },
   {
     id: 'helix',
     title: 'Helix',
     description: 'Sophisticated design with thoughtful use of whitespace and circular elements for a refined presentation.',
-    themes: [{ bg: '#e9ebed' }, { bg: '#092969' }, { bg: '#061023' }, { bg: '#320101' }]
+    themes: [{ bg: '#e9ebed', nameColor: 'black' }, { bg: '#092969', txt: '#fff' }, { bg: '#061023', txt: '#fff' }, { bg: '#320101', txt: '#fff' }]
   },
   {
     id: 'horizon',
     title: 'Horizon',
     description: 'Elegant bordered format with timeless appeal, ideal for traditional industries valuing sophistication.',
-    themes: [{ bg: '#061023' }, { bg: '#3116ad' }, { bg: '#e3e6ea' }, { bg: '#092969' }]
+    themes: [{ bg: '#061023' }, { bg: '#3116ad', sideTxt: '#3116ad' }, { bg: '#e3e6ea' }, { bg: '#092969', sideTxt: '#092969' }]
   },
   {
     id: 'quantum',
@@ -183,22 +183,27 @@ export const buildingTemplates = [
     themes: [{ bg: '#092969' }, { bg: '#3116ad' }, { bg: '#320101' }, { bg: '#003d42' }]
   },
   {
-    id: 'classic_europass',
+    id: 'classic_euro_pass',
     title: 'Classic Europass',
     description: 'Refined sidebar accents and circular portrait add sophistication to the trusted Europass structure.',
-    themes: [{ bg: '#3685fc' }, { bg: '#092969' }, { bg: '#094c41' }, { bg: '#7851a9' }]
+    themes: [
+      { sideTxt: '#333', bg: '#E1F1FF', txt: '#3685FC' },
+      { sideTxt: '#FFF', bg: '#092969', txt: '#092969' },
+      { sideTxt: '#FFF', bg: '#094c41', txt: '#094c41' },
+      { sideTxt: '#FFF', bg: '#7851a9', txt: '#7851a9' },
+    ]
   },
   {
     id: 'modern_clean',
     title: 'Modern Clean',
     description: 'Modern layout with strategic use of sections to gracefully organize and prioritize your professional information.',
-    themes: [{ bg: '#3685fc' }, { bg: '#ff6600' }, { bg: '#569e00' }, { bg: '#ac17e7' }]
+    themes: [{ bg: '#3685fc', sideBg: '#d6eaff' }, { bg: '#ff6600', sideBg: '#FFECBA' }, { bg: '#569e00', sideBg: '#E8F3DB' }, { bg: '#ac17e7', sideBg: '#F0E5FF' }]
   },
   {
     id: 'professional_sidebar',
     title: 'Professional Sidebar',
     description: 'Balanced two-column layout that thoughtfully organizes personal details, skills, and linguistic abilities.',
-    themes: [{ bg: '#092969' }, { bg: '#691cdd' }, { bg: '#320101' }, { bg: '#003d42' }]
+    themes: [{ bg: '#092969', sideBg: '#ebeef3' }, { bg: '#691cdd', sideBg: '#f3ebfc' }, { bg: '#320101', sideBg: '#efebeb' }, { bg: '#003d42', sideBg: '#ebf0f0' }]
   },
   {
     id: 'two_column_balanced',
@@ -229,7 +234,7 @@ export const buildResumeSlice = createSlice({
     showLanguageLevel: data.showLanguageLevel,
     additionalSections: data.additionalSections,
     languages: data.languages,
-    activeThemeMap: {},
+    activeThemeMap: {}
   },
   reducers: {
     nextStep: (state) => { state.step = Math.min(buildingSteps.length - 1, state.step + 1) },

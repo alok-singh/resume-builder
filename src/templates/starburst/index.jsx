@@ -7,24 +7,25 @@ const SectionHeading = ({ children }) => {
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const StarBurst = (props) => {
   const data = props?.basicInfo ? props : resumeData;
-  const { basicInfo, summary, skills = [], experienceList = [], educationList = [] } = data;
+  const { basicInfo, summary, skills = [], experienceList = [], educationList = [], additionalSections = [] } = data;
   const fullName = `${basicInfo.firstName} ${basicInfo.lastName}`;
   const fullAddress = [basicInfo.address, basicInfo.city, basicInfo.country, basicInfo.postCode].filter(Boolean).join(', ');
   const mid = Math.ceil(skills.length / 2);
 
-  return (
-    <div className="mx-auto w-full max-w-4xl overflow-hidden rounded-md bg-white font-serif shadow-sm">
-      <div className="flex flex-col items-center bg-neutral-800 px-8 py-6 text-white">
+  const themeStyleBgColor = props?.templateThemeColor?.bg || '#303030';
+ return (
+    <div style={props.style} className="overflow-hidden bg-white font-open-sans shadow-sm h-full">
+      <div className="flex flex-col items-center px-8 py-6 text-white" style={{ backgroundColor: themeStyleBgColor }}>
         {basicInfo.profileImage && <img src={basicInfo.profileImage} alt={fullName} className="mb-3 h-20 w-20 rounded object-cover" />}
         <h1 className="text-2xl font-bold">{fullName}</h1>
         <p className="text-sm uppercase tracking-widest">{basicInfo.currentJobTitle}</p>
       </div>
-      <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 bg-neutral-800 px-8 py-3 text-sm text-white">
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 px-2 py-2 text-sm text-white border-t" style={{ backgroundColor: themeStyleBgColor }}>
         {basicInfo.email && (
           <span className="flex items-center gap-1.5">
             <Mail size={13} />
@@ -45,11 +46,11 @@ const StarBurst = (props) => {
         )}
       </div>
 
-      <div className="px-8 py-8 text-slate-900">
+      <div className="px-12 py-8 text-slate-900">
         {summary && (
           <section className="mb-8">
             <SectionHeading>Summary</SectionHeading>
-            <p className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
+            <div className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
           </section>
         )}
 
@@ -82,11 +83,20 @@ const StarBurst = (props) => {
                   <p className="text-sm text-slate-500">
                     {edu.start} &mdash; {edu.isPursuing ? 'Current' : edu.end}
                   </p>
+                  {edu.description ? <HtmlList html={edu.description} /> : null}
                 </div>
               ))}
             </div>
           </section>
         )}
+
+        {additionalSections.length > 0 &&
+          additionalSections.map((additionalSection, idx) => (
+            <section className="mb-8">
+              <SectionHeading>{additionalSection.title}</SectionHeading>
+              {additionalSection.description ? <HtmlList html={additionalSection.description} /> : null}
+            </section>
+          ))}
 
         {skills.length > 0 && (
           <section>

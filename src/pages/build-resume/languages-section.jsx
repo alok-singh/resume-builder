@@ -5,6 +5,7 @@ import Card from '../../components/glass-card';
 import TextField from '../../components/text-fields';
 import Toggle from '../../components/toggle';
 import { addLanguage, modifyLanguage, removeLanguage, setShowLanguageLevel } from '../../features/build-resume-slice';
+import { getLanguageProficiency } from '../../utils/helper.util';
 
 const LanguagesSection = () => {
   const dispatch = useDispatch();
@@ -16,14 +17,14 @@ const LanguagesSection = () => {
         {languages.map((language, index) => (
           <Card key={`skills-${index}`}>
             <div className={`grid gap-4 ${showLanguageLevel ? 'sm:grid-cols-[1fr_1fr_auto]' : 'sm:grid-cols-[1fr_auto]'} sm:items-center`}>
-              <TextField label="Skill" placeholder="TypeScript" value={language.name} onChange={(value) => dispatch(modifySkill({ index, key: 'name', value }))} />
+              <TextField label="Skill" placeholder="TypeScript" value={language.name} onChange={(value) => dispatch(modifyLanguage({ index, key: 'name', value }))} />
               {showLanguageLevel ? (
                 <div>
                   <label className="mb-1.5 block text-sm font-medium">
                     Level <span className="text-muted-foreground">(optional)</span>
                   </label>
                   <input type="range" min={0} max={100} value={language.level} onChange={({ target }) => dispatch(modifyLanguage({ index, key: 'level', value: target.value }))} className="w-full accent-indigo-500 cursor-pointer" />
-                  <p className="mt-1 text-xs text-muted-foreground">{language.level > 90 ? 'Native' : language.level > 70 ? 'Proficient' : language.level > 50 ? 'Advanced' : 'Intermediate'}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">{getLanguageProficiency(language.level)}</p>
                 </div>
               ) : null}
               <button type="button" onClick={() => dispatch(removeLanguage({ index }))} className="hover:text-red-400 transition-colors p-2 rounded-lg hover:bg-slate-50 self-end mb-1 cursor-pointer" title="Delete Level Entry">

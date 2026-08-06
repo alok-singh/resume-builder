@@ -22,7 +22,7 @@ const Galaxy = (props) => {
   const themeStyleBgColor = props?.templateThemeColor?.bg || '#e5e7eb';
   const themeStyleTxtColor = props?.templateThemeColor?.txt || '#1e2939';
   return (
-    <div style={{ color: themeStyleTxtColor }} className={`p-8 shadow font-eb-garamond bg-white aspect-[1/1.414]`}>
+    <div style={{ color: themeStyleTxtColor, ...(props.style || {}) }} className="p-8 font-eb-garamond bg-white h-full text-sm">
       <div className="[&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_a]:text-blue-600 [&_a]:underline">
         {/* <!-- Header --> */}
         <div className="text-center">
@@ -46,7 +46,7 @@ const Galaxy = (props) => {
               SUMMARY
             </h2>
           ) : null}
-          <p className="mt-3 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: resumeData?.summary }}></p>
+          <div className="mt-3 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: resumeData?.summary }} />
         </div>
 
         {/* <!-- Experience --> */}

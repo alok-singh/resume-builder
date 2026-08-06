@@ -22,8 +22,8 @@ const Astralis = (props) => {
   const themeStyleTagBgColor = props?.templateThemeColor?.txt || '#f4f55d';
 
   return (
-    <div className="mx-auto w-full max-w-4xl border-10 bg-white p-2" style={{ borderColor: themeStyleBgColor }}>
-      <div className="border-2 border-white p-8">
+    <div className="border-10 bg-white p-8 h-full" style={{ ...props.style, borderColor: themeStyleBgColor }}>
+      <div className="border-2 border-white">
         {/* Yellow blob header */}
         <div className="relative mb-8 flex h-40 w-64 flex-col items-start justify-center">
           <div className="absolute w-75 z-0 -left-5">
@@ -40,9 +40,9 @@ const Astralis = (props) => {
         </div>
 
         {/* Body */}
-        <div className="grid grid-cols-[62%_1px_1fr] gap-x-8">
+        <div className="flex pt-8">
           {/* Left column */}
-          <div>
+          <div className="w-[62%] mr-8">
             {summary && (
               <section className="mb-8">
                 <SectionHeading>Summary</SectionHeading>
@@ -94,6 +94,11 @@ const Astralis = (props) => {
                           {edu.schoolName}
                           {edu.location ? `, ${edu.location}` : ''}
                         </p>
+                        {edu.description ? (
+                          <div className="mt-1">
+                            <HtmlBullets html={edu.description} />
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                   ))}
@@ -115,11 +120,8 @@ const Astralis = (props) => {
               : null}
           </div>
 
-          {/* Divider */}
-          <div className="border-l border-dotted border-slate-400" />
-
           {/* Right sidebar */}
-          <div>
+          <div className=" pl-8 grow border-l border-dotted border-slate-400 do-not-hide">
             <section className="mb-8">
               <SectionHeading>Details</SectionHeading>
               <div className="space-y-3 text-sm text-slate-700">

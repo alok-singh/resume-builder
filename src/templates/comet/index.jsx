@@ -3,11 +3,11 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 import resumeData from '../../data/candidate-1-data.json';
 
 const Badge = ({ children }) => {
-  return <span className="inline-block bg-slate-900 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">{children}</span>;
+  return <span className="bg-slate-900 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">{children}</span>;
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Comet = (props) => {
@@ -15,8 +15,8 @@ const Comet = (props) => {
   const { basicInfo, summary, skills = [], experienceList = [], educationList = [], additionalSections = [] } = data;
   const fullAddress = [basicInfo.address, basicInfo.city, basicInfo.country, basicInfo.postCode].filter(Boolean).join(', ');
   const themeStyleBgColor = props?.templateThemeColor?.bg || '#ffe14d';
-  return (
-    <div className="mx-auto w-full max-w-4xl overflow-hidden rounded-xl bg-white font-sans shadow-sm">
+ return (
+    <div style={props.style} className="h-full text-[14px] bg-white font-open-sans shadow-sm">
       {/* Yellow header */}
       <div className="flex items-center gap-6 px-8 py-4" style={{ backgroundColor: themeStyleBgColor }}>
         {basicInfo.profileImage && <img src={basicInfo.profileImage} alt={basicInfo.firstName} className="h-30 w-30 flex-none rounded object-cover" />}
@@ -56,7 +56,7 @@ const Comet = (props) => {
         {summary && (
           <div className="mb-6">
             <Badge>Summary</Badge>
-            <p className="mt-3 text-sm leading-relaxed text-slate-800" dangerouslySetInnerHTML={{ __html: summary }} />
+            <HtmlList html={summary} />
           </div>
         )}
 
@@ -98,16 +98,13 @@ const Comet = (props) => {
           </div>
         )}
 
-        {additionalSections.length > 0 && (
-          <div className="mb-6">
-            {additionalSections.map((section, idx) => (
-              <div key={idx}>
-                <Badge>{section.title}</Badge>
-                <HtmlList html={section.description} />
-              </div>
-            ))}
-          </div>
-        )}
+        {additionalSections.length > 0 &&
+          additionalSections.map((section, idx) => (
+            <div className="mb-6" key={idx}>
+              <Badge>{section.title}</Badge>
+              <HtmlList html={section.description} />
+            </div>
+          ))}
 
         {skills.length > 0 && (
           <div>

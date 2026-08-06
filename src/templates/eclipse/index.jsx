@@ -23,7 +23,7 @@ const Eclipse = (props) => {
   const skillsRight = skills.slice(mid);
 
   return (
-    <div className="font-time-new-roman mx-auto w-full max-w-4xl bg-white px-14 py-12 text-slate-900">
+    <div style={props.style} className="h-full font-time-new-roman bg-white p-8 text-slate-900">
       {/* Centered header */}
       <div className="text-center">
         <p className="text-base font-bold">{basicInfo.currentJobTitle}</p>
@@ -102,6 +102,11 @@ const Eclipse = (props) => {
                 <p className="mt-1 text-[15px] text-slate-800">
                   {edu.start} - {edu.isPursuing ? 'Current' : edu.end}
                 </p>
+                {edu.description ? (
+                  <div className="mt-2">
+                    <HtmlBullets html={edu.description} />
+                  </div>
+                ) : null}
               </div>
             ))}
           </div>
@@ -116,10 +121,7 @@ const Eclipse = (props) => {
             {[skillsLeft, skillsRight].map((column, colIdx) => (
               <ul key={colIdx} className="space-y-2">
                 {column.map((skill) => (
-                  <li key={skill.name} className="flex gap-2">
-                    <span>&bull;</span>
-                    {skill.name}
-                  </li>
+                  <li key={skill.name}>{skill.name}</li>
                 ))}
               </ul>
             ))}

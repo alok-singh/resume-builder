@@ -11,7 +11,7 @@ const SectionHeading = ({ children }) => {
 };
 
 const HtmlBullets = ({ html }) => {
-  return <div className="space-y-1.5 text-sm leading-relaxed text-slate-700 [&_ul]:list-none [&_ul]:space-y-1.5 [&_ul]:pl-0 [&_li]:relative [&_li]:pl-4 [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:content-['•']" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="space-y-1.5 text-sm leading-relaxed text-slate-700 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Orbit = (props) => {
@@ -21,7 +21,7 @@ const Orbit = (props) => {
   const fullAddress = [basicInfo.address, basicInfo.city, basicInfo.postCode].filter(Boolean).join(', ');
 
   return (
-    <div className="mx-auto w-full max-w-4xl bg-white p-10 font-sans text-slate-800">
+    <div style={props.style} className="bg-white p-8 font-open-sans text-slate-800 h-full flex flex-col">
       {/* Name header */}
       <h1 className="text-4xl font-extrabold uppercase leading-tight tracking-tight text-slate-900">
         {basicInfo.firstName}
@@ -33,9 +33,9 @@ const Orbit = (props) => {
       <div className="my-6 border-t border-slate-300" />
 
       {/* Two-column layout */}
-      <div className="grid grid-cols-[30%_1px_1fr] gap-x-8">
+      <div className="flex grow">
         {/* Left column */}
-        <div>
+        <div className="do-not-hide min-w-[30%] w-[30%]">
           <section className="mb-8">
             <SectionHeading>Details</SectionHeading>
             <div className="space-y-4 text-sm text-slate-700">
@@ -78,11 +78,8 @@ const Orbit = (props) => {
           )}
         </div>
 
-        {/* Divider */}
-        <div className="bg-slate-200" />
-
         {/* Right column */}
-        <div>
+        <div className="grow border-l border-slate-200 pl-8">
           {summary && (
             <section className="mb-8">
               <SectionHeading>Summary</SectionHeading>
@@ -129,6 +126,11 @@ const Orbit = (props) => {
                     <p className="text-sm text-slate-600">
                       {edu.start} - {edu.isPursuing ? 'Current' : edu.end}
                     </p>
+                    {edu.description ? (
+                      <div className="mt-2">
+                        <HtmlBullets html={edu.description} />
+                      </div>
+                    ) : null}
                   </div>
                 ))}
               </div>

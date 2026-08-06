@@ -7,7 +7,7 @@ const SectionHeading = ({ children }) => {
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-700 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-700 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Nebular = (props) => {
@@ -18,14 +18,14 @@ const Nebular = (props) => {
 
   const themeStyleBgColor = props?.templateThemeColor?.bg || 'oklch(97% 0 0)';
   return (
-    <div className="mx-auto w-full max-w-4xl p-10 font-sans text-slate-900" style={{ backgroundColor: themeStyleBgColor }}>
+    <div className="p-10 font-open-sans text-slate-900 h-full" style={{ ...props.style, backgroundColor: themeStyleBgColor }}>
       <div className="text-center">
         <h1 className="text-3xl font-bold tracking-wide">{fullName.toUpperCase()}</h1>
         <p className="mt-2 border-t border-b border-slate-400 py-1.5 text-sm uppercase tracking-widest">{basicInfo.currentJobTitle}</p>
       </div>
 
       <div className="mt-8 grid grid-cols-[30%_1fr] gap-x-10">
-        <div>
+        <div className='do-not-hide'>
           <section className="mb-8">
             <SectionHeading>Details</SectionHeading>
             <div className="space-y-2 text-sm text-slate-700">
@@ -65,7 +65,7 @@ const Nebular = (props) => {
           {summary && (
             <section className="mb-8">
               <SectionHeading>Summary</SectionHeading>
-              <p className="text-sm leading-relaxed text-slate-700" dangerouslySetInnerHTML={{ __html: summary }} />
+              <div className="text-sm leading-relaxed text-slate-700" dangerouslySetInnerHTML={{ __html: summary }} />
             </section>
           )}
 

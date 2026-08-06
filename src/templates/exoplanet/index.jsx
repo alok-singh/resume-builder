@@ -2,25 +2,30 @@ import React from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import resumeData from '../../data/candidate-1-data.json';
 
-const SectionHeading = ({ children }) => {
-  return <h2 className="mb-3 border-b border-slate-300 pb-1 text-sm font-bold uppercase tracking-widest text-slate-900">{children}</h2>;
+const SectionHeading = ({ children, style }) => {
+  return (
+    <h2 className="mb-3 border-b pb-1 text-sm font-bold uppercase tracking-widest text-slate-900" style={style}>
+      {children}
+    </h2>
+  );
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Exoplanet = (props) => {
   const data = props?.basicInfo ? props : resumeData;
-  const { basicInfo, summary, skills = [], experienceList = [], educationList = [] } = data;
+  const { basicInfo, summary, skills = [], experienceList = [], educationList = [], additionalSections = [] } = data;
   const fullName = `${basicInfo.firstName} ${basicInfo.lastName}`;
   const mid = Math.ceil(skills.length / 2);
 
+  const themeStyleBgColor = props?.templateThemeColor?.bg || '#303030';
   return (
-    <div className="mx-auto w-full max-w-4xl bg-white p-10 font-sans text-slate-900">
+    <div style={props.style} className="bg-white p-10 text-slate-900 font-roboto h-full">
       <div className="flex items-start justify-between border-b border-slate-300 pb-6">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-wide">{fullName.toUpperCase()}</h1>
+          <h1 className="text-2xl font-extrabold tracking-wide font-montserrat">{fullName.toUpperCase()}</h1>
           <p className="mt-1 text-sm">{basicInfo.currentJobTitle}</p>
         </div>
         <div className="space-y-1 text-right text-sm">
@@ -47,26 +52,30 @@ const Exoplanet = (props) => {
 
       {summary && (
         <section className="mt-6">
-          <SectionHeading>Summary</SectionHeading>
-          <p className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
+          <SectionHeading style={{ borderColor: themeStyleBgColor }}>Summary</SectionHeading>
+          <div className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} />
         </section>
       )}
 
       {experienceList.length > 0 && (
         <section className="mt-6">
-          <SectionHeading>Experience</SectionHeading>
+          <SectionHeading style={{ borderColor: themeStyleBgColor }}>Experience</SectionHeading>
           <div className="space-y-5">
             {experienceList.map((exp, idx) => (
-              <div key={idx} className="grid grid-cols-[120px_1fr] gap-4">
-                <p className="text-sm text-slate-500">
-                  {exp.start} - {exp.isCurrentJob ? 'Current' : exp.end}
-                </p>
-                <div>
-                  <p className="font-bold">{exp.title}</p>
-                  <p className="text-sm text-slate-600">{exp.employer}</p>
-                  <HtmlList html={exp.description} />
+              <>
+                <div key={idx} className="flex items-center justify-between">
+                  <div>
+                    <p className="font-bold" style={{ color: themeStyleBgColor }}>
+                      {exp.title}
+                    </p>
+                    <p className="text-sm text-slate-600">{exp.employer}</p>
+                  </div>
+                  <p className="text-sm text-slate-500">
+                    {exp.start} - {exp.isCurrentJob ? 'Current' : exp.end}
+                  </p>
                 </div>
-              </div>
+                <HtmlList html={exp.description} />
+              </>
             ))}
           </div>
         </section>
@@ -74,24 +83,37 @@ const Exoplanet = (props) => {
 
       {educationList.length > 0 && (
         <section className="mt-6">
-          <SectionHeading>Education</SectionHeading>
+          <SectionHeading style={{ borderColor: themeStyleBgColor }}>Education</SectionHeading>
           <div className="space-y-2">
             {educationList.map((edu, idx) => (
-              <div key={idx} className="grid grid-cols-[120px_1fr] gap-4">
-                <p className="text-sm text-slate-500">{edu.start}</p>
-                <div>
-                  <p className="font-bold">{edu.degree}</p>
-                  <p className="text-sm text-slate-600">{edu.schoolName}</p>
+              <div key={idx}>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-bold" style={{ color: themeStyleBgColor }}>
+                      {edu.degree}
+                    </p>
+                    <p className="text-sm text-slate-600">{edu.schoolName}</p>
+                  </div>
+                  <p className="text-sm text-slate-500">{edu.start}</p>
                 </div>
+                {edu.description ? <HtmlList html={edu.description} /> : null}
               </div>
             ))}
           </div>
         </section>
       )}
 
+      {additionalSections.length > 0 &&
+        additionalSections.map((additionalSection, idx) => (
+          <section className="mt-6">
+            <SectionHeading style={{ borderColor: themeStyleBgColor }}>{additionalSection.title}</SectionHeading>
+            {additionalSection.description ? <HtmlList html={additionalSection.description} /> : null}
+          </section>
+        ))}
+
       {skills.length > 0 && (
         <section className="mt-6">
-          <SectionHeading>Skills</SectionHeading>
+          <SectionHeading style={{ borderColor: themeStyleBgColor }}>Skills</SectionHeading>
           <div className="grid grid-cols-2 gap-x-10 text-sm">
             <ul className="space-y-1.5">
               {skills.slice(0, mid).map((s) => (

@@ -11,7 +11,7 @@ const SectionHeading = ({ children, style }) => {
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-1 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-1 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Solstice = (props) => {
@@ -24,7 +24,7 @@ const Solstice = (props) => {
   const themeStyleBgColor = props?.templateThemeColor?.bg || '#02061b';
 
   return (
-    <div className="mx-auto w-full max-w-4xl bg-white px-10 py-10 font-serif text-slate-900">
+    <div style={props.style} className="bg-white px-10 py-10 font-serif text-slate-900 min-h-full">
       <div className="text-center">
         <h1 className="text-4xl" style={{ color: themeStyleBgColor }}>
           {fullName}
@@ -64,7 +64,7 @@ const Solstice = (props) => {
       {summary && (
         <section className="mt-8">
           <SectionHeading style={{ color: themeStyleBgColor }}>Summary</SectionHeading>
-          <p className="text-sm leading-relaxed text-slate-800" dangerouslySetInnerHTML={{ __html: summary }} />
+          <div className="text-sm leading-relaxed text-slate-800" dangerouslySetInnerHTML={{ __html: summary }} />
         </section>
       )}
 
@@ -99,6 +99,9 @@ const Solstice = (props) => {
                 <p className="text-sm">
                   {edu.schoolName}, {edu.location}
                 </p>
+                <div>
+                  <HtmlList html={edu.description} />
+                </div>
               </div>
             ))}
           </div>

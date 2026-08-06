@@ -3,19 +3,19 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 import resumeData from '../../data/candidate-1-data.json';
 
 const SectionHeading = ({ children }) => {
-  return <span className="inline-block bg-slate-100 px-4 py-2 text-sm font-bold uppercase tracking-wide text-slate-900">{children}</span>;
+  return <span className="bg-slate-100 px-4 py-2 text-sm font-bold uppercase tracking-wide text-slate-900">{children}</span>;
 };
 
 const DateBadge = ({ children, style }) => {
   return (
-    <span className="inline-block px-3 py-1 text-xs font-semibold text-white" style={style}>
+    <span className="px-3 py-1 text-xs font-semibold text-white" style={style}>
       {children}
     </span>
   );
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-800 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Hyperion = (props) => {
@@ -25,8 +25,8 @@ const Hyperion = (props) => {
   const fullAddress = [basicInfo.address, basicInfo.city, basicInfo.postCode, basicInfo.country].filter(Boolean).join(', ');
   const themeStyleBgColor = props?.templateThemeColor?.bg || 'oklch(70.4% 0.04 256.788)';
 
-  return (
-    <div className="font-roboto-slab mx-auto w-full max-w-4xl bg-white p-10 text-slate-900">
+ return (
+    <div style={props.style} className="font-roboto-slab bg-white p-10 text-slate-900 h-full">
       <h1 className="text-2xl font-extrabold tracking-wide">{fullName.toUpperCase()}</h1>
       <p className="text-sm font-bold text-right">{basicInfo.currentJobTitle}</p>
 
@@ -60,7 +60,7 @@ const Hyperion = (props) => {
       {summary && (
         <section className="mt-6">
           <SectionHeading>Summary</SectionHeading>
-          <p className="mt-3 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} style={{ color: themeStyleBgColor }} />
+          <div className="mt-3 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: summary }} style={{ color: themeStyleBgColor }} />
         </section>
       )}
 

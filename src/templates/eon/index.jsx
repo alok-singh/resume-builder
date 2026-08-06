@@ -12,7 +12,7 @@ const SectionHeading = ({ icon: Icon, children }) => {
 };
 
 const HtmlList = ({ html }) => {
-  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-700 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-slate-700 [&_ul]:list-disc [&_ul]:pl-4" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const Eon = (props) => {
@@ -21,8 +21,8 @@ const Eon = (props) => {
   const fullName = `${basicInfo.firstName} ${basicInfo.lastName}`;
   const fullAddress = [basicInfo.address, basicInfo.city, basicInfo.country, basicInfo.postCode].filter(Boolean).join(', ');
 
-  return (
-    <div className="mx-auto w-full max-w-4xl bg-white p-8 font-sans text-slate-900">
+ return (
+    <div style={props.style} className="bg-white p-8 font-open-sans text-slate-900 h-full flex flex-col">
       <div className="flex items-center gap-4">
         {basicInfo.profileImage && <img src={basicInfo.profileImage} alt={fullName} className="h-16 w-16 rounded object-cover" />}
         <div>
@@ -30,7 +30,7 @@ const Eon = (props) => {
           <p className="text-sm text-slate-500">{basicInfo.currentJobTitle}</p>
         </div>
       </div>
-      <div className="grid grid-cols-[1fr_260px] gap-8 mt-6 space-y-6">
+      <div className="grid grid-cols-[1fr_260px] gap-8 mt-6 space-y-6 grow">
         <div>
           {summary && (
             <section className="mb-6">
